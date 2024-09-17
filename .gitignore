@@ -1,0 +1,5 @@
+.idea/
+web-layer/.idea/
+web-layer/.vscode/
+web-layer/node_modules
+web-layer/.angular/
