@@ -3,3 +3,11 @@ web-layer/.idea/
 web-layer/.vscode/
 web-layer/node_modules
 web-layer/.angular/
+EmployeeManagementSystem.API/obj
+EmployeeManagementSystem.API/bin
+EmployeeManagementSystem.Application/bin
+EmployeeManagementSystem.Application/obj
+EmployeeManagementSystem.Infrastructure/bin
+EmployeeManagementSystem.Infrastructure/obj
+EmployeeManagementSystem.Domain/obj
+EmployeeManagementSystem.Domain/bin

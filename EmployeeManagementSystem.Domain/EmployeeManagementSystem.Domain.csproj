@@ -6,11 +6,4 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="Abstractions\" />
-      <Folder Include="Dtos\" />
-      <Folder Include="Entities\" />
-      <Folder Include="Enums\" />
-    </ItemGroup>
-
 </Project>
