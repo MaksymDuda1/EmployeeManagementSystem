@@ -1,4 +1,4 @@
-# Reenbit.TestTask
+# Reenbit internship
 
 ## Structure
 - [About Project](#about-project)
