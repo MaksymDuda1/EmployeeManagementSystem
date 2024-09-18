@@ -1,4 +1,3 @@
-using EmployeeManagementSystem.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,9 +11,11 @@ public static class InfrastructureServicesRegistration
         IConfiguration configuration)
     {
         services.AddDbContext<EmployeeManagementSystemContext>(opt =>
+        {
+            opt.UseSqlServer(configuration.GetConnectionString(nameof(EmployeeManagementSystemContext)));
+        });
         
-            opt.UseSqlServer(configuration.GetConnectionString("EmployeeManagementSystemContext")));
-        
+
         return services;
     }
 }

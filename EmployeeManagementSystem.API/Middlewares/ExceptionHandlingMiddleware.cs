@@ -1,5 +1,5 @@
 using System.Security.Authentication;
-using EmployeeManagementSystem.Application.Exceptions;
+using EmployeeManagementSystem.Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagementSystem.API.Middlewares;
