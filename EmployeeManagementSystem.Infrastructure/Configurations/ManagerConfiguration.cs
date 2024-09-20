@@ -18,9 +18,5 @@ public class ManagerConfiguration : IEntityTypeConfiguration<Manager>
         entity.Property(e => e.Department)
             .HasMaxLength(255)
             .IsUnicode(false);
-
-        entity.HasOne(d => d.User).WithOne(p => p.Manager)
-            .HasForeignKey<Manager>(d => d.UserId)
-            .HasConstraintName("FK__Manager__UserId__656C112C");
     }
 }

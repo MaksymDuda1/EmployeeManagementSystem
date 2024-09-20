@@ -1,0 +1,85 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\maksi\\reenbit\\EmployeeManagementSystem\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4915838A-F35C-49F5-94C0-8952A199B276}|EmployeeManagementSystem.Infrastructure\\EmployeeManagementSystem.Infrastructure.csproj|c:\\users\\maksi\\reenbit\\employeemanagementsystem\\employeemanagementsystem.infrastructure\\infrastructureservicesregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4915838A-F35C-49F5-94C0-8952A199B276}|EmployeeManagementSystem.Infrastructure\\EmployeeManagementSystem.Infrastructure.csproj|solutionrelative:employeemanagementsystem.infrastructure\\infrastructureservicesregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36332B4B-47E3-409B-B733-35EB308EC83C}|EmployeeManagementSystem.API\\EmployeeManagementSystem.API.csproj|c:\\users\\maksi\\reenbit\\employeemanagementsystem\\employeemanagementsystem.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{36332B4B-47E3-409B-B733-35EB308EC83C}|EmployeeManagementSystem.API\\EmployeeManagementSystem.API.csproj|solutionrelative:employeemanagementsystem.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36332B4B-47E3-409B-B733-35EB308EC83C}|EmployeeManagementSystem.API\\EmployeeManagementSystem.API.csproj|c:\\users\\maksi\\reenbit\\employeemanagementsystem\\employeemanagementsystem.api\\startuphelperextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{36332B4B-47E3-409B-B733-35EB308EC83C}|EmployeeManagementSystem.API\\EmployeeManagementSystem.API.csproj|solutionrelative:employeemanagementsystem.api\\startuphelperextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36332B4B-47E3-409B-B733-35EB308EC83C}|EmployeeManagementSystem.API\\EmployeeManagementSystem.API.csproj|c:\\users\\maksi\\reenbit\\employeemanagementsystem\\employeemanagementsystem.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{36332B4B-47E3-409B-B733-35EB308EC83C}|EmployeeManagementSystem.API\\EmployeeManagementSystem.API.csproj|solutionrelative:employeemanagementsystem.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\maksi\\reenbit\\EmployeeManagementSystem\\EmployeeManagementSystem.API\\appsettings.json",
+              "RelativeDocumentMoniker": "EmployeeManagementSystem.API\\appsettings.json",
+              "ToolTip": "C:\\Users\\maksi\\reenbit\\EmployeeManagementSystem\\EmployeeManagementSystem.API\\appsettings.json",
+              "RelativeToolTip": "EmployeeManagementSystem.API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-09-19T18:15:01.484Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "InfrastructureServicesRegistration.cs",
+              "DocumentMoniker": "C:\\Users\\maksi\\reenbit\\EmployeeManagementSystem\\EmployeeManagementSystem.Infrastructure\\InfrastructureServicesRegistration.cs",
+              "RelativeDocumentMoniker": "EmployeeManagementSystem.Infrastructure\\InfrastructureServicesRegistration.cs",
+              "ToolTip": "C:\\Users\\maksi\\reenbit\\EmployeeManagementSystem\\EmployeeManagementSystem.Infrastructure\\InfrastructureServicesRegistration.cs",
+              "RelativeToolTip": "EmployeeManagementSystem.Infrastructure\\InfrastructureServicesRegistration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-19T18:14:55.369Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StartupHelperExtensions.cs",
+              "DocumentMoniker": "C:\\Users\\maksi\\reenbit\\EmployeeManagementSystem\\EmployeeManagementSystem.API\\StartupHelperExtensions.cs",
+              "RelativeDocumentMoniker": "EmployeeManagementSystem.API\\StartupHelperExtensions.cs",
+              "ToolTip": "C:\\Users\\maksi\\reenbit\\EmployeeManagementSystem\\EmployeeManagementSystem.API\\StartupHelperExtensions.cs",
+              "RelativeToolTip": "EmployeeManagementSystem.API\\StartupHelperExtensions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-19T18:14:45.529Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\maksi\\reenbit\\EmployeeManagementSystem\\EmployeeManagementSystem.API\\Program.cs",
+              "RelativeDocumentMoniker": "EmployeeManagementSystem.API\\Program.cs",
+              "ToolTip": "C:\\Users\\maksi\\reenbit\\EmployeeManagementSystem\\EmployeeManagementSystem.API\\Program.cs",
+              "RelativeToolTip": "EmployeeManagementSystem.API\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-19T18:14:20.226Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

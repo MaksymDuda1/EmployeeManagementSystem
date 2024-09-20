@@ -33,6 +33,7 @@ public class ProjectConfiguration : IEntityTypeConfiguration<Project>
                 {
                     j.HasKey("ProjectId", "ManagerId").HasName("PK__ProjectM__75A0945E446E4E43");
                     j.ToTable("ProjectManager");
+                    j.HasIndex(new[] { "ManagerId" }, "IX_ProjectManager_ManagerId");
                 });
     }
 }

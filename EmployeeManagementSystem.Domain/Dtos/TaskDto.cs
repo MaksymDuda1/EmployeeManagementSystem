@@ -1,11 +1,10 @@
-﻿using EmployeeManagementSystem.Domain.Enums;
+﻿using EmployeeManagementSystem.Domain.Dtos.Base;
+using EmployeeManagementSystem.Domain.Enums;
 
 namespace EmployeeManagementSystem.Domain.Dtos;
 
-public class TaskDto
+public class TaskDto : BaseDto<Guid>
 {
-    public Guid Id { get; set; }
-
     public string Name { get; set; } = null!;
 
     public string? Description { get; set; }
@@ -18,7 +17,7 @@ public class TaskDto
 
     public Guid EmployeeId { get; set; }
 
-    public virtual EmployeeDto Employee { get; set; } = null!;
+    public EmployeeDto? Employee { get; set; } = null!;
 
-    public virtual ProjectDto Project { get; set; } = null!;
+    public ProjectDto? Project { get; set; } = null!;
 }

@@ -1,9 +1,9 @@
-﻿namespace EmployeeManagementSystem.Domain.Dtos;
+﻿using EmployeeManagementSystem.Domain.Dtos.Base;
 
-public class ProjectDto
+namespace EmployeeManagementSystem.Domain.Dtos;
+
+public class ProjectDto : BaseDto<Guid>
 {
-    public Guid Id { get; set; }
-
     public string Name { get; set; } = null!;
 
     public string Customer { get; set; } = null!;

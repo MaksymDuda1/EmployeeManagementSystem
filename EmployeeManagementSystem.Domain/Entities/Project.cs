@@ -1,12 +1,14 @@
-﻿using EmployeeManagementSystem.Domain.Entities;
+﻿using System.Reflection.Metadata.Ecma335;
+using EmployeeManagementSystem.Domain.Entities;
+using EmployeeManagementSystem.Domain.Entities.Base;
 using Task = EmployeeManagementSystem.Domain.Entities.Task;
 
-namespace EmployeeManagementSystem.Infrastructure;
+namespace EmployeeManagementSystem.Domain.Entities;
 
-public partial class Project
+public class Project : IEntity<Guid>
 {
     public Guid Id { get; set; }
-
+    
     public string Name { get; set; } = null!;
 
     public string Customer { get; set; } = null!;
@@ -18,4 +20,7 @@ public partial class Project
     public virtual ICollection<Task> Tasks { get; set; } = new List<Task>();
 
     public virtual ICollection<Manager> Managers { get; set; } = new List<Manager>();
+    
+    public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
+
 }

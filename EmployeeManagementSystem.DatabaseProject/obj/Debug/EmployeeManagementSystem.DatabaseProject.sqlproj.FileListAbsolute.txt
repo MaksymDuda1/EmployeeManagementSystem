@@ -1,0 +1,6 @@
+C:\Users\maksi\reenbit\EmployeeManagementSystem\EmployeeManagementSystem.DatabaseProject\bin\Debug\EmployeeManagementSystem.DatabaseProject.dacpac
+C:\Users\maksi\reenbit\EmployeeManagementSystem\EmployeeManagementSystem.DatabaseProject\bin\Debug\EmployeeManagementSystem.DatabaseProject.dll
+C:\Users\maksi\reenbit\EmployeeManagementSystem\EmployeeManagementSystem.DatabaseProject\bin\Debug\EmployeeManagementSystem.DatabaseProject.pdb
+C:\Users\maksi\reenbit\EmployeeManagementSystem\EmployeeManagementSystem.DatabaseProject\obj\Debug\EmployeeManagementSystem.DatabaseProject.sqlproj.AssemblyReference.cache
+C:\Users\maksi\reenbit\EmployeeManagementSystem\EmployeeManagementSystem.DatabaseProject\obj\Debug\EmployeeManagementSystem.DatabaseProject.dll
+C:\Users\maksi\reenbit\EmployeeManagementSystem\EmployeeManagementSystem.DatabaseProject\obj\Debug\EmployeeManagementSystem.DatabaseProject.pdb

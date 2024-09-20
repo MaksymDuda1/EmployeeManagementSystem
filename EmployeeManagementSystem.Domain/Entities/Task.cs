@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using EmployeeManagementSystem.Infrastructure;
+using EmployeeManagementSystem.Domain.Entities.Base;
 
 namespace EmployeeManagementSystem.Domain.Entities;
 
-public partial class Task
+public class Task : IEntity<Guid>
 {
     public Guid Id { get; set; }
-
     public string Name { get; set; } = null!;
 
     public string? Description { get; set; }

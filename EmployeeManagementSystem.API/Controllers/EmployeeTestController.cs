@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
+using EmployeeManagementSystem.Domain.Abstractions;
 using EmployeeManagementSystem.Domain.Dtos;
 using EmployeeManagementSystem.Domain.Entities;
-using EmployeeManagementSystem.Domain.Exceptions;
 using EmployeeManagementSystem.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,26 +11,20 @@ namespace EmployeeManagementSystem.API.Controllers;
 
 [ApiController]
 [Route("api/employee")]
-public class EmployeeTestController(
-    EmployeeManagementSystemContext context,
-    IMapper mapper) : ControllerBase
+public class EmployeeTestController(IEmployeeRepository employeeRepository) : ControllerBase
 {
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> GetAll()
     {
-        var employees = await context.Employees
-            .Include(em => em.User)
-            .ToListAsync();
-        return Ok(employees.Select(mapper.Map<EmployeeDto>));
+        var employees = await employeeRepository.GetAllAsync();
+        return Ok(employees);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add([FromBody] AddEmployeeDto request)
+    public async Task<IActionResult> Add([FromBody] EmployeeDto request)
     {
-        var employee = mapper.Map<Employee>(request);
-
-        await context.AddAsync(employee);
-        await context.SaveChangesAsync();
+        await employeeRepository.InsertAsync(request);
 
         return Ok(Created());
     }

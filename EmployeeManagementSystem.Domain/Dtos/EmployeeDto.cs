@@ -1,9 +1,10 @@
-﻿namespace EmployeeManagementSystem.Domain.Dtos;
+﻿using System.Reflection.Metadata.Ecma335;
+using EmployeeManagementSystem.Domain.Dtos.Base;
 
-public class EmployeeDto
+namespace EmployeeManagementSystem.Domain.Dtos;
+
+public class EmployeeDto : BaseDto<Guid>
 {
-    public Guid Id { get; set; }
-
     public string Position { get; set; } = null!;
 
     public DateOnly HireDate { get; set; }
@@ -12,5 +13,5 @@ public class EmployeeDto
 
     public virtual ICollection<TaskDto> Tasks { get; set; } = new List<TaskDto>();
 
-    public virtual UserDto User { get; set; } = null!;
+    public virtual UserDto? User { get; set; } = null!;
 }

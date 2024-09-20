@@ -1,0 +1,88 @@
+19.09.2024 17:07:30	This log contains information about the import schema operation into project 'EmployeeManagementSystem.DatabaseProject' on computer 'MAKSI' by user 'maksi'.
+19.09.2024 17:07:30	Import of database schema has started.
+19.09.2024 17:07:47	Gathering database credentials
+19.09.2024 17:07:47	Gathering database options
+19.09.2024 17:07:47	Gathering generic database scoped configuration option
+19.09.2024 17:07:47	Gathering users
+19.09.2024 17:07:47	Gathering roles
+19.09.2024 17:07:47	Gathering application roles
+19.09.2024 17:07:47	Gathering role memberships
+19.09.2024 17:07:47	Gathering filegroups
+19.09.2024 17:07:47	Gathering full-text catalogs
+19.09.2024 17:07:47	Gathering assemblies
+19.09.2024 17:07:47	Gathering certificates
+19.09.2024 17:07:47	Gathering asymmetric keys
+19.09.2024 17:07:47	Gathering symmetric keys
+19.09.2024 17:07:47	Gathering encrypted symmetric keys
+19.09.2024 17:07:47	Gathering schemas
+19.09.2024 17:07:47	Gathering XML schema collections
+19.09.2024 17:07:47	Gathering user-defined data types
+19.09.2024 17:07:47	Gathering user-defined types
+19.09.2024 17:07:47	Gathering table types
+19.09.2024 17:07:47	Gathering unique keys for table types
+19.09.2024 17:07:47	Gathering primary keys for table types
+19.09.2024 17:07:49	Gathering indexes for table types
+19.09.2024 17:07:49	Gathering check constraints for table types
+19.09.2024 17:07:49	Gathering default constraints for table types
+19.09.2024 17:07:49	Gathering partition functions
+19.09.2024 17:07:49	Gathering partition schemes
+19.09.2024 17:07:49	Gathering functions
+19.09.2024 17:07:49	Gathering encrypted functions
+19.09.2024 17:07:49	Gathering aggregates
+19.09.2024 17:07:49	Gathering procedures
+19.09.2024 17:07:49	Gathering encrypted procedures
+19.09.2024 17:07:49	Gathering tables
+19.09.2024 17:07:49	Gathering primary keys
+19.09.2024 17:07:49	Gathering unique constraints
+19.09.2024 17:07:49	Gathering foreign keys
+19.09.2024 17:07:49	Gathering default constraints
+19.09.2024 17:07:49	Gathering check constraints
+19.09.2024 17:07:49	Gathering views
+19.09.2024 17:07:49	Gathering encrypted views
+19.09.2024 17:07:49	Gathering indexes
+19.09.2024 17:07:50	Gathering statistics
+19.09.2024 17:07:50	Gathering full-text index stoplists
+19.09.2024 17:07:50	Gathering search property lists
+19.09.2024 17:07:50	Gathering search properties
+19.09.2024 17:07:50	Gathering full-text indexes
+19.09.2024 17:07:50	Gathering column store indexes
+19.09.2024 17:07:50	Gathering spatial indexes
+19.09.2024 17:07:50	Gathering XML indexes
+19.09.2024 17:07:50	Gathering Selective XML indexes
+19.09.2024 17:07:50	Gathering encrypted triggers
+19.09.2024 17:07:50	Gathering triggers
+19.09.2024 17:07:50	Gathering encrypted and clr ddl triggers
+19.09.2024 17:07:50	Gathering ddl triggers
+19.09.2024 17:07:50	Creating edge constraints
+19.09.2024 17:07:50	Gathering synonyms
+19.09.2024 17:07:50	Gathering defaults
+19.09.2024 17:07:50	Gathering data constraint uddt bindings
+19.09.2024 17:07:50	Gathering rules
+19.09.2024 17:07:50	Gathering data constraint uddt bindings
+19.09.2024 17:07:50	Gathering message types
+19.09.2024 17:07:50	Gathering queues
+19.09.2024 17:07:50	Gathering contracts
+19.09.2024 17:07:50	Gathering services
+19.09.2024 17:07:50	Gathering event notifications
+19.09.2024 17:07:50	Gathering remote service bindings
+19.09.2024 17:07:50	Gathering broker priorities
+19.09.2024 17:07:50	Gathering signatures
+19.09.2024 17:07:50	Gathering compression options
+19.09.2024 17:07:50	Gathering sequence types
+19.09.2024 17:07:50	Gathering security policies
+19.09.2024 17:07:50	Gather column encryption keys
+19.09.2024 17:07:50	Gathering column master keys
+19.09.2024 17:07:50	Gathering external data sources
+19.09.2024 17:07:50	Gathering external file formats
+19.09.2024 17:07:50	Gathering external tables
+19.09.2024 17:07:50	Gathering XML index compression options
+19.09.2024 17:07:50	Gathering extended properties
+19.09.2024 17:07:50	Gathering assemblies
+19.09.2024 17:07:50	Gathering credentials
+19.09.2024 17:07:50	Gathering logins
+19.09.2024 17:07:50	Gathering server audits
+19.09.2024 17:07:51	Scanning project for duplicate elements
+19.09.2024 17:07:51	Finished duplicate element processing
+19.09.2024 17:07:51	Finished importing database.
+19.09.2024 17:07:51	A summary of the import was saved to the following location: C:\Users\maksi\reenbit\EmployeeManagementSystem\EmployeeManagementSystem.DatabaseProject\Import Schema Logs\EmployeeManagementSy_20240919020730.log
+19.09.2024 17:07:51	Click Finish to continue...

@@ -1,0 +1,13 @@
+﻿CREATE TABLE [dbo].[Manager] (
+    [Id]         UNIQUEIDENTIFIER DEFAULT (newid()) NOT NULL,
+    [Department] VARCHAR (255)    NOT NULL,
+    [UserId]     UNIQUEIDENTIFIER NOT NULL,
+    CONSTRAINT [PK__Manager__3214EC073B7374FE] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_Manager_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [UQ__Manager__1788CC4D93AF14AB]
+    ON [dbo].[Manager]([UserId] ASC);
+

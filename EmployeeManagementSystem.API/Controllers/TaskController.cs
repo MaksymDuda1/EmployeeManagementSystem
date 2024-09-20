@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EmployeeManagementSystem.Domain.Abstractions;
 using EmployeeManagementSystem.Domain.Dtos;
 using EmployeeManagementSystem.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
@@ -9,24 +10,19 @@ namespace EmployeeManagementSystem.API.Controllers;
 
 [ApiController]
 [Route("api/task")]
-public class TaskController(
-    EmployeeManagementSystemContext context,
-    IMapper mapper) : ControllerBase
+public class TaskController(ITaskRepository taskRepository) : ControllerBase
 {
     [HttpGet]
     public async Task<IActionResult> Get()
     {
-        var tasks = await context.Tasks.ToListAsync();
-        return Ok(mapper.Map<List<TaskDto>>(tasks));
+        var tasks = await taskRepository.GetAllAsync();
+        return Ok(tasks);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] AddTaskDto request)
+    public async Task<IActionResult> Post([FromBody] TaskDto request)
     {
-        var task = mapper.Map<Task>(request);
-
-        await context.AddAsync(task);
-        await context.SaveChangesAsync();
+        await taskRepository.InsertAsync(request);
         return Ok(Created());
     }
 }

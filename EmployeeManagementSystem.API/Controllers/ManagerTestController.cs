@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using EmployeeManagementSystem.Domain.Abstractions;
 using EmployeeManagementSystem.Domain.Dtos;
 using EmployeeManagementSystem.Domain.Entities;
-using EmployeeManagementSystem.Domain.Exceptions;
 using EmployeeManagementSystem.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,27 +10,19 @@ namespace EmployeeManagementSystem.API.Controllers;
 
 [ApiController]
 [Route("api/manager")]
-public class ManagerTestController(
-    EmployeeManagementSystemContext context,
-    IMapper mapper) : ControllerBase
+public class ManagerTestController(IManagerRepository managerRepository) : ControllerBase
 {
     [HttpGet]
     public async Task<IActionResult> Get()
     {
-        var manager = await context.Managers
-            .Include(manager => manager.User)
-            .ToListAsync();
-        return Ok(manager.Select(mapper.Map<ManagerDto>));
+        var manager = await managerRepository.GetAllAsync();
+        return Ok(manager);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add([FromBody] AddManagerDto request)
+    public async Task<IActionResult> Add([FromBody] ManagerDto request)
     {
-        var manager = mapper.Map<Manager>(request);
-        
-        await context.Managers.AddAsync(manager);
-        await context.SaveChangesAsync();
-        
+        await managerRepository.InsertAsync(request);
         return Ok(Created());
     }
 }
