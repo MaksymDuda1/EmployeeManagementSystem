@@ -15,6 +15,7 @@ public static class ApplicationServicesRegistration
         services.AddScoped<ITaskService, TaskService>();
         services.AddScoped<IProjectService, ProjectService>();
         services.AddScoped<IManagerService, ManagerService>();
+        services.AddScoped<IAdminService, AdminService>();
         return services;
     }
 }

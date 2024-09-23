@@ -3,9 +3,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 160px;
+    margin-top: 16vh;
     padding: 40px;
-    width: 480px;
+    width: 64vw;
 }
 
 .form-group {
@@ -34,15 +34,8 @@ a:hover {
     transition: color 0.5s ease;
 }
 
-.users{
-    opacity: 60%;
-}
-
-.centered-credentials {
-    margin-top: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 200px;
-    width: 440px;
+@media (max-height:600px) {
+    .container {
+        margin-top: 0px;
+    }
 }
