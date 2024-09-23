@@ -5,8 +5,7 @@ using EmployeeManagementSystem.Domain.Entities;
 
 namespace EmployeeManagementSystem.Infrastructure.Repositories;
 
-public class ManagerRepository(EmployeeManagementSystemContext context, IMapper mapper)
-    : CRudRepository<Manager, ManagerDto, EmployeeManagementSystemContext, Guid>(context, mapper), IManagerRepository
+public class ManagerRepository(EmployeeManagementSystemContext context)
+    : CRudRepository<Manager, EmployeeManagementSystemContext, Guid>(context), IManagerRepository
 {
-    
 }

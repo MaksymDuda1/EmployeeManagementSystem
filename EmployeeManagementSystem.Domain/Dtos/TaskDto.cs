@@ -17,7 +17,7 @@ public class TaskDto : BaseDto<Guid>
 
     public Guid EmployeeId { get; set; }
 
-    public EmployeeDto? Employee { get; set; } = null!;
+    public EmployeeDto? Employee { get; set; } 
 
-    public ProjectDto? Project { get; set; } = null!;
+    public ProjectDto? Project { get; set; } 
 }

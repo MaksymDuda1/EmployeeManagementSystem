@@ -1,62 +1,80 @@
-﻿using AutoMapper;
+﻿using System.Linq.Expressions;
 using EmployeeManagementSystem.Domain.Abstractions;
-using EmployeeManagementSystem.Domain.Dtos.Base;
 using EmployeeManagementSystem.Domain.Entities.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagementSystem.Infrastructure.Repositories;
 
-public abstract class CRudRepository<TEntity, TDto, TContext, TId>(
-    TContext context,
-    IMapper mapper)
-    : ICrudRepository<TDto, TId>
-    where TEntity : class, IEntity<TId>
-    where TDto : BaseDto<TId>
+public abstract class CRudRepository<TEntity, TContext, TId>(TContext context)
+    : ICRudRepository<TEntity> where TEntity : class, IEntity<TId>
     where TContext : DbContext
     where TId : IEquatable<TId>, IComparable<TId>
 {
-    public virtual async Task<List<TDto>> GetAllAsync()
+    public virtual async Task<List<TEntity>> GetAllAsync(
+        params Expression<Func<TEntity, object>>[] includes)
     {
-        var entities = await context.Set<TEntity>()
-            .AsNoTracking().ToListAsync();
-        
-        return entities.Select(mapper.Map<TDto>).ToList();
+        var query = context.Set<TEntity>().AsNoTracking();
+
+        return await includes
+            .Aggregate(query, (current, next) => current.Include(next))
+            .ToListAsync();
     }
 
-    public virtual async Task<TDto> GetById(Guid id)
+    public virtual async Task<List<TEntity>> GetByConditionsAsync(
+        Expression<Func<TEntity, bool>> expression,
+        params Expression<Func<TEntity, object>>[] includes)
     {
-        var entity = await context.Set<TEntity>().FindAsync(id);
-        return mapper.Map<TDto>(entity);
+        var query = context.Set<TEntity>()
+            .Where(expression)
+            .AsNoTracking();
+
+        return await includes
+            .Aggregate(query, (current, next) => current.Include(next))
+            .ToListAsync();
     }
 
-    public virtual async Task InsertAsync(TDto dto)
+    public virtual async Task<TEntity?> GetSingleByConditionAsync(
+        Expression<Func<TEntity, bool>> expression,
+        params Expression<Func<TEntity, object>>[] includes)
     {
-        await context.Set<TEntity>().AddAsync(mapper.Map<TEntity>(dto));
+        var result = context.Set<TEntity>()
+            .Where(expression)
+            .AsNoTracking();
+
+        return await includes
+            .Aggregate(result, (current, next) => current.Include(next))
+            .FirstOrDefaultAsync();
+    }
+
+    public virtual async Task InsertAsync(TEntity entity)
+    {
+        await context.Set<TEntity>().AddAsync(entity);
         await context.SaveChangesAsync();
     }
 
-    public virtual async Task InsertRangeAsync(List<TDto> dtos)
+    public virtual async Task InsertRangeAsync(List<TEntity> entities)
     {
-        await context.AddRangeAsync(dtos.Select(mapper.Map<TEntity>));
+        await context.AddRangeAsync(entities);
         await context.SaveChangesAsync();
     }
 
-    public virtual async Task Update(TDto dto)
+    public virtual async Task UpdateAsync(TEntity entity)
     {
-        context.Set<TEntity>().Update(mapper.Map<TEntity>(dto));
+        context.Set<TEntity>().Update(entity);
         await context.SaveChangesAsync();
     }
 
-    public virtual async Task Delete(Guid id)
+    public virtual async Task DeleteAsync(Guid id)
     {
-        var t = await context.Set<TEntity>().FindAsync(id);
+        var tEntity = await context.Set<TEntity>().FindAsync(id);
 
-        context.Remove(t);
+        context.Remove(tEntity);
+        await context.SaveChangesAsync();
     }
 
-    public virtual async Task Delete(TDto dto)
+    public virtual async Task DeleteAsync(TEntity entity)
     {
-        context.Set<TEntity>().Remove(mapper.Map<TEntity>(dto));
+        context.Set<TEntity>().Remove(entity);
         await context.SaveChangesAsync();
     }
 }

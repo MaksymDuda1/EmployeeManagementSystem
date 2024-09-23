@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EmployeeManagementSystem.Application.Abstractions;
 using EmployeeManagementSystem.Domain.Abstractions;
 using EmployeeManagementSystem.Domain.Dtos;
 using EmployeeManagementSystem.Infrastructure;
@@ -8,21 +9,54 @@ using Task = EmployeeManagementSystem.Domain.Entities.Task;
 
 namespace EmployeeManagementSystem.API.Controllers;
 
-[ApiController]
-[Route("api/task")]
-public class TaskController(ITaskRepository taskRepository) : ControllerBase
+[ApiController, Route("api/task")]
+public class TaskController(ITaskService taskService) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> GetAllTasks()
     {
-        var tasks = await taskRepository.GetAllAsync();
+        var tasks = await taskService.GetAllTasksAsync();
+
         return Ok(tasks);
     }
 
-    [HttpPost]
-    public async Task<IActionResult> Post([FromBody] TaskDto request)
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetTaskById(Guid id)
     {
-        await taskRepository.InsertAsync(request);
-        return Ok(Created());
+        var task = await taskService.GetTaskByIdAsync(id);
+        
+        return Ok(task);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddTask([FromBody] TaskDto request)
+    {
+        await taskService.AddTaskAsync(request);
+
+        return Created($"api/task/{request.Id}", request);
+    }
+
+    [HttpPost("upsert")]
+    public async Task<IActionResult> UpsertTask([FromBody] TaskDto request)
+    {
+        await taskService.UpsertTaskAsync(request);
+
+        return Ok();
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> UpdateTask([FromBody] TaskDto request)
+    {
+        await taskService.UpdateTaskAsync(request);
+
+        return Ok();
+    }
+
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> DeleteTask(Guid id)
+    {
+        await taskService.DeleteTaskAsync(id);
+        
+        return Ok();
     }
 }

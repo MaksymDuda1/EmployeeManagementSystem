@@ -10,7 +10,6 @@ using EmployeeManagementSystem.Domain.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Task = System.Threading.Tasks.Task;
 
 namespace EmployeeManagementSystem.Application.Services;
 
@@ -29,31 +28,26 @@ public class TokenService : ITokenService
         jwtSecret = this.configuration["JWT:Secret"];
     }
 
-    public async Task<string> RefreshToken(TokenApiModel token)
+    public async Task<TokenApiModel> RefreshToken(TokenApiModel token)
     {
         try
         {
             var principal = GetPrincipalFromExpiredToken(token.AccessToken);
-            string username = principal.Identity.Name!;
+            string username = principal.Identity.Name;
             var user = await userManager.FindByNameAsync(username);
 
             if (user is null)
                 throw new EntityNotFoundException("User Not Found");
 
             if (user.RefreshToken != token.RefreshToken)
-            {
                 throw new CredentialValidationException("Refresh token is not recognised.");
-            }
 
-            if (user.RefreshTokenExpiration <= DateTime.Now)
-            {
+
+            if (user.RefreshTokenExpiration <= DateTime.UtcNow)
                 throw new ValidationException("Refresh token is not valid due to expiration");
-            }
 
-            var claims = await GenerateClaims(user);
-            var accessToken = CreateAccessToken(claims);
-
-            return accessToken;
+            var tokenModel = await GenerateToken(user);
+            return tokenModel;
         }
         catch (Exception e)
         {
@@ -61,16 +55,17 @@ public class TokenService : ITokenService
         }
     }
 
-    public async Task RevokeTokenAsync(ClaimsPrincipal principal)
+    public async Task<IdentityResult> RevokeTokenAsync(string email)
     {
-        var userEmail = principal.Identity.Name;
-        var user = await userManager.FindByEmailAsync(userEmail);
-        if (user == null) throw new Exception("Invalid client request");
+        var user = await userManager.FindByEmailAsync(email);
+        if (user is null)
+            return IdentityResult.Failed();
+
         user.RefreshToken = null;
-        await userManager.UpdateAsync(user);
+        return await userManager.UpdateAsync(user);
     }
 
-    public string CreateAccessToken(ClaimsIdentity claims)
+    public string GenerateAccessToken(ClaimsIdentity claims)
     {
         try
         {
@@ -84,7 +79,8 @@ public class TokenService : ITokenService
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 SigningCredentials = credentials,
-                Expires = DateTime.UtcNow.AddHours(Convert.ToInt16(configuration["JWT:AccessTokenExpirationHours"])),
+                Expires =
+                    DateTime.UtcNow.AddMinutes(Convert.ToInt16(configuration["JWT:AccessTokenExpirationMinutes"])),
                 Subject = claims,
                 Issuer = configuration["JWT:ValidIssuer"],
                 Audience = configuration["JWT:ValidAudience"]
@@ -159,16 +155,17 @@ public class TokenService : ITokenService
         }
     }
 
-    public async Task<TokenApiModel> GenerateToken(User user)
+    public async Task<TokenApiModel> GenerateToken(User user, bool extendExpiration = false)
     {
         var claims = await GenerateClaims(user);
-
-        var accessToken = CreateAccessToken(claims);
+        var accessToken = GenerateAccessToken(claims);
         var refreshToken = GenerateRefreshToken();
 
         user.RefreshToken = refreshToken;
-        user.RefreshTokenExpiration =
-            DateTime.UtcNow.AddDays(Convert.ToInt16(configuration["JWT:RefreshTokenExpirationsDays"]));
+
+        if (extendExpiration)
+            user.RefreshTokenExpiration =
+                DateTime.UtcNow.AddDays(Convert.ToInt16(configuration["JWT:RefreshTokenExpirationDays"]));
 
         await userManager.UpdateAsync(user);
 

@@ -11,7 +11,10 @@ public static class ApplicationServicesRegistration
         services.AddAutoMapper(typeof(MappingProfile.MappingProfile));
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IAuthorizationService, AuthorizationService>();
-        
+        services.AddScoped<IEmployeeService, EmployeeService>();
+        services.AddScoped<ITaskService, TaskService>();
+        services.AddScoped<IProjectService, ProjectService>();
+        services.AddScoped<IManagerService, ManagerService>();
         return services;
     }
 }

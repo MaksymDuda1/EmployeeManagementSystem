@@ -3,6 +3,7 @@ using EmployeeManagementSystem.Application.Abstractions;
 using EmployeeManagementSystem.Application.Models;
 using EmployeeManagementSystem.Domain.Dtos;
 using EmployeeManagementSystem.Domain.Entities;
+using EmployeeManagementSystem.Domain.Enums;
 using EmployeeManagementSystem.Domain.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Task = System.Threading.Tasks.Task;
@@ -27,7 +28,7 @@ public class AuthorizationService (
         if (!result.Succeeded)
             throw new CredentialValidationException("Wrong password");
 
-        return await tokenService.GenerateToken(userByEmail);
+        return await tokenService.GenerateToken(userByEmail, true);
     }
 
     public async Task<TokenApiModel> Registration(RegistrationDto registrationDto)
@@ -45,14 +46,9 @@ public class AuthorizationService (
         if (!result.Succeeded)
             throw new AuthenticationException(result.Errors.First().Description);
 
-        await userManager.AddToRoleAsync(user, "Employee");
+        await userManager.AddToRoleAsync(user, UserRole.Initial.ToString());
         await userManager.UpdateAsync(user);
 
         return await tokenService.GenerateToken(user);
-    }
-    
-    public async Task Logout()
-    {
-        await signInManager.SignOutAsync();
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Text.Json.Serialization;
 using EmployeeManagementSystem.Domain.Entities.Base;
 
 namespace EmployeeManagementSystem.Domain.Entities;
@@ -19,7 +18,9 @@ public class Task : IEntity<Guid>
 
     public Guid EmployeeId { get; set; }
 
+    [JsonIgnore]
     public virtual Employee Employee { get; set; } = null!;
 
+    [JsonIgnore]
     public virtual Project Project { get; set; } = null!;
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Text.Json.Serialization;
 using EmployeeManagementSystem.Domain.Entities.Base;
 
 namespace EmployeeManagementSystem.Domain.Entities;

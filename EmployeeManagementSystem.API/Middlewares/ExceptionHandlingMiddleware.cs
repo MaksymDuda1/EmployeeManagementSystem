@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Security.Authentication;
 using EmployeeManagementSystem.Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,9 @@ public class ExceptionHandlingMiddleware(
             {
                 case EntityNotFoundException entityNotFoundException:
                     code = StatusCodes.Status404NotFound;
+                    break;
+                case ValidationException validationException:
+                    code = StatusCodes.Status400BadRequest;
                     break;
                 case AuthenticationException authenticationException:
                     code = StatusCodes.Status401Unauthorized;

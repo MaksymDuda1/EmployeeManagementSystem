@@ -6,8 +6,7 @@ using IAuthorizationService = EmployeeManagementSystem.Application.Abstractions.
 
 namespace EmployeeManagementSystem.API.Controllers;
 
-[ApiController]
-[Route("api/auth")]
+[ApiController, Route("api/auth")]
 public class AuthorizationController(IAuthorizationService authorizationService)
     : ControllerBase
 {
@@ -21,14 +20,5 @@ public class AuthorizationController(IAuthorizationService authorizationService)
     public async Task<IActionResult> Registration(RegistrationDto request)
     {
         return Ok(await authorizationService.Registration(request));
-    }
-    
-      
-    [HttpPost("logout")]
-    [Authorize]
-    public async Task<IActionResult> Logout()
-    {
-        await authorizationService.Logout();
-        return NoContent();
     }
 }

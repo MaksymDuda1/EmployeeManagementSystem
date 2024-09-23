@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using EmployeeManagementSystem.Domain.Entities.Base;
+using Microsoft.AspNetCore.Identity;
 
 namespace EmployeeManagementSystem.Domain.Entities;
 
-public class User : IdentityUser<Guid>
+public class User : IdentityUser<Guid>, IEntity<Guid>
 {
     public string FirstName { get; set; } = null!;
 
