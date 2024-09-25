@@ -1,1 +1,53 @@
-<p>landing works!</p>
+<div class="intro-section">
+    <img class="background-img" src="assets/background.jpg" alt="asd">
+    <div class="overlay-content">
+        <h2>In every successful organization, the heartbeat of progress lies in empowering people to thrive</h2>
+        <p>it's about creating a culture of growth and collaboration—it's about us</p>
+
+        <div class="buttons">
+            <button class="btn btn-dark text-white opacity-75 mx-2" style="width: 6em; height: 3em;" [routerLink]="['/sign-in']">Sign in</button>
+            <button class="btn btn-dark text-white opacity-75 mx-2" style="width: 6em; height: 3em;" [routerLink]="['/sign-up']">Sign up</button>
+        </div>
+    </div>
+</div>
+
+<div class="cards my-5">
+    <h1 class="d-flex justify-content-center">Principles</h1>
+    <app-cards />
+</div>
+
+<div class="accordions my-5">
+    <h1 class="d-flex justify-content-center">Values</h1>
+    <app-accordions />
+</div>
+
+<div class="team my-5">
+    <h1 class="d-flex justify-content-center">Team</h1>
+
+    <div class="card flex justify-content-center overflow-x-auto">
+        <p-organizationChart 
+            [value]="data" 
+            selectionMode="multiple" 
+            [(selection)]="selectedNodes" 
+            [collapsible]="true">
+                <ng-template let-node pTemplate="person">
+                    <div class="p-2 text-center">
+                        <img 
+                            [src]="node.data.image" 
+                            class="mb-3 w-3rem h-3rem" />
+                        <div class="font-bold">
+                            {{ node.data.name }}
+                        </div>
+                        <div>
+                            {{ node.data.title }}
+                        </div>
+                    </div>
+                </ng-template>
+        </p-organizationChart>
+    </div>
+</div>
+
+<div class="main-technologies my-5">
+    <h1 class="d-flex justify-content-center">Main-technologies</h1>
+    <img class="img-fluid" src="assets/main-technologies.png" alt="asd">
+</div>

@@ -8,6 +8,7 @@ import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { LocalService } from '../services/local.service';
 import { jwtFactory } from './jwt-options';
 import { errorInterceptor } from '../inceptors/errorHandling.interceptor';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -25,5 +26,5 @@ export const appConfig: ApplicationConfig = {
           useFactory: jwtFactory,
           deps: [LocalService]
         }
-      }),])]
+      }),]), provideAnimationsAsync()]
 };

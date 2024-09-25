@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace EmployeeManagementSystem.Infrastructure.Configurations;
+namespace EmployeeManagementSystem.Infrastructure.Data.Configurations;
 
 public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
 {

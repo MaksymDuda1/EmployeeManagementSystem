@@ -1,5 +1,5 @@
 using EmployeeManagementSystem.API;
-using EmployeeManagementSystem.Infrastructure;
+using EmployeeManagementSystem.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -52,7 +52,7 @@ public class TaskService(
         if(taskDto.DeadlineDate > project.EndDate)
             throw new ValidationException("Task deadline date cannot be greater than project end date");
 
-        var task = mapper.Map<Domain.Entities.Task>(taskDto);
+        var task = mapper.Map<Domain.Entities.TaskItem>(taskDto);
         await taskRepository.InsertAsync(task);
     }
 

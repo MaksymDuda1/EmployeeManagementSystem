@@ -1,0 +1,30 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.explore-section {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.explore-section span {
+    margin-right: 10px;
+    font-size: 18px;
+    color: #007bff;
+}
+
+.explore-section img {
+    width: 20px;
+    height: auto;
+}

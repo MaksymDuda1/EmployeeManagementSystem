@@ -1,6 +1,7 @@
 using EmployeeManagementSystem.API.Middlewares;
 using EmployeeManagementSystem.Application;
 using EmployeeManagementSystem.Infrastructure;
+using EmployeeManagementSystem.Infrastructure.Data;
 
 namespace EmployeeManagementSystem.API;
 
@@ -13,6 +14,8 @@ public static class StartupHelperExtensions
 
         builder.Services.AddApplicationServices();
         builder.Services.AddInfrastructureServices(builder.Configuration);
+
+        Seed.SeedAdmin(builder.Services.BuildServiceProvider());
         
         return builder.Build();
     }

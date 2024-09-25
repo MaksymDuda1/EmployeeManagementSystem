@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using EmployeeManagementSystem.Domain.Entities.Base;
+﻿using EmployeeManagementSystem.Domain.Entities.Base;
 
 namespace EmployeeManagementSystem.Domain.Entities;
 
@@ -13,7 +12,7 @@ public class Employee : IEntity<Guid>
 
     public Guid UserId { get; set; }
     
-    public virtual ICollection<Task> Tasks { get; set; } = new List<Task>();
+    public virtual ICollection<TaskItem> Tasks { get; set; } = new List<TaskItem>();
 
     public virtual User User { get; set; } = null!;
     

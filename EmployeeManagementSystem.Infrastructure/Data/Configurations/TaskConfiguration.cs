@@ -1,13 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EmployeeManagementSystem.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using EmployeeManagementSystem.Domain.Entities;
-using Task = EmployeeManagementSystem.Domain.Entities.Task;
 
-namespace EmployeeManagementSystem.Infrastructure.Configurations;
+namespace EmployeeManagementSystem.Infrastructure.Data.Configurations;
 
-public class TaskConfiguration : IEntityTypeConfiguration<Task>
+public class TaskConfiguration : IEntityTypeConfiguration<TaskItem>
 {
-    public void Configure(EntityTypeBuilder<Task> entity)
+    public void Configure(EntityTypeBuilder<TaskItem> entity)
     {
         entity.HasKey(e => e.Id).HasName("PK__TASK__3214EC072A1619DD");
 

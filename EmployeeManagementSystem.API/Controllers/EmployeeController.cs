@@ -1,6 +1,5 @@
 ﻿using EmployeeManagementSystem.Application.Abstractions;
 using EmployeeManagementSystem.Domain.Dtos;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagementSystem.API.Controllers;

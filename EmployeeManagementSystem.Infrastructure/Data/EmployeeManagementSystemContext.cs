@@ -1,9 +1,8 @@
 ﻿using EmployeeManagementSystem.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Task = EmployeeManagementSystem.Domain.Entities.Task;
 
-namespace EmployeeManagementSystem.Infrastructure;
+namespace EmployeeManagementSystem.Infrastructure.Data;
 
 public class EmployeeManagementSystemContext(DbContextOptions<EmployeeManagementSystemContext> options)
     : IdentityDbContext<User, Role, Guid> (options)
@@ -14,7 +13,7 @@ public class EmployeeManagementSystemContext(DbContextOptions<EmployeeManagement
     
     public virtual DbSet<Project> Projects { get; set; }
 
-    public virtual DbSet<Task> Tasks { get; set; }
+    public virtual DbSet<TaskItem> Tasks { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

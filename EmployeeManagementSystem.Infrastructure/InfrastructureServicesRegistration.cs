@@ -1,6 +1,7 @@
 using System.Text;
 using EmployeeManagementSystem.Domain.Abstractions;
 using EmployeeManagementSystem.Domain.Entities;
+using EmployeeManagementSystem.Infrastructure.Data;
 using EmployeeManagementSystem.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;

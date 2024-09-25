@@ -1,0 +1,55 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 12vh;
+    padding: 40px;
+    width: 44vw;
+}
+
+.fullname {
+    display: flex;
+    gap: 20px; 
+    width: 100%;
+}
+
+
+.form-group {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.main-text {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.btn-dark {
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: grey;
+}
+
+a:hover {
+    text-decoration: none;
+    color: black;
+    transition: color 0.5s ease;
+}
+
+@media (max-height:768px) {
+    .container {
+        margin-top: 0px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 56vh;
+    }
+}

@@ -32,15 +32,16 @@ export class LoginComponent {
         this.localService.put(LocalService.AuthTokenName, tokenModel.accessToken);
 
         var decodedData = this.jwtHelperService.decodeToken(tokenModel.accessToken);
+        window.location.href = 'role-based';
 
-        if(decodedData.role = Role.Admin)
-          window.location.href = 'admin';
-        if(decodedData = Role.Manager)
-          window.location.href = 'manager'
-        if(decodedData.role = Role.Employee)
-          window.location.href = 'employee'
-        if(decodedData.role = Role.Initial)
-          window.location.href = 'intital'
+        // if(decodedData.role = Role.Admin)
+        //   window.location.href = 'admin';
+        // if(decodedData = Role.Manager)
+        //   window.location.href = 'manager'
+        // if(decodedData.role = Role.Employee)
+        //   window.location.href = 'employee'
+        // if(decodedData.role = Role.Initial)
+        //   window.location.href = 'intital'
       }     
     },
   errorResponse => {

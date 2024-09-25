@@ -1,6 +1,5 @@
 ﻿using EmployeeManagementSystem.Application.Models;
 using EmployeeManagementSystem.Domain.Dtos;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using IAuthorizationService = EmployeeManagementSystem.Application.Abstractions.IAuthorizationService;
 

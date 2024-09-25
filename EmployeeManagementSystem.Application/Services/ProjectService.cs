@@ -4,6 +4,7 @@ using EmployeeManagementSystem.Domain.Abstractions;
 using EmployeeManagementSystem.Domain.Dtos;
 using EmployeeManagementSystem.Domain.Entities;
 using EmployeeManagementSystem.Domain.Exceptions;
+using FluentValidation;
 using Task = System.Threading.Tasks.Task;
 
 namespace EmployeeManagementSystem.Application.Services;
@@ -12,6 +13,7 @@ public class ProjectService(
     IProjectRepository projectRepository,
     IManagerRepository managerRepository,
     IEmployeeRepository employeeRepository,
+   IValidator<ProjectDto> projectValidator,
     IMapper mapper) : IProjectService
 {
     public async Task<List<ProjectDto>> GetAllProjectsAsync()
@@ -37,6 +39,13 @@ public class ProjectService(
 
     public async Task AddProjectAsync(ProjectDto projectDto)
     {
+        var result = await projectValidator.ValidateAsync(projectDto);
+
+        if (!result.IsValid)
+        {
+            throw new ValidationException(result.Errors);
+        }
+
         var project = mapper.Map<Project>(projectDto);
         await projectRepository.InsertAsync(project);
     }

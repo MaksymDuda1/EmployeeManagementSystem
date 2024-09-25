@@ -1,7 +1,5 @@
-﻿using System.Reflection.Metadata.Ecma335;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using EmployeeManagementSystem.Domain.Dtos.Base;
-using EmployeeManagementSystem.Domain.Entities;
 
 namespace EmployeeManagementSystem.Domain.Dtos;
 

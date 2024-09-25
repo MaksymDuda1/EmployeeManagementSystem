@@ -2,7 +2,6 @@
 using EmployeeManagementSystem.Application.Models;
 using EmployeeManagementSystem.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
-using Task = System.Threading.Tasks.Task;
 
 namespace EmployeeManagementSystem.Application.Abstractions;
 

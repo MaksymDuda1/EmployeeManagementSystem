@@ -1,0 +1,17 @@
+.card-img-top {
+    height: 32vh;
+}
+
+.card{
+    width: 30rem;
+}
+
+@media (max-width: 768px) {
+    .cards {
+        display: block !important;        
+    }
+    .card{
+        width: 80vw;
+        margin-bottom: 3rem;
+    }
+}

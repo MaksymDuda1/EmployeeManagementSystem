@@ -3,7 +3,7 @@ using EmployeeManagementSystem.Domain.Entities.Base;
 
 namespace EmployeeManagementSystem.Domain.Entities;
 
-public class Task : IEntity<Guid>
+public class TaskItem : IEntity<Guid>
 {
     public Guid Id { get; set; }
     public string Name { get; set; } = null!;

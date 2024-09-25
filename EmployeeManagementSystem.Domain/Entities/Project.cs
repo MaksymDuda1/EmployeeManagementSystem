@@ -1,7 +1,4 @@
-﻿using System.Reflection.Metadata.Ecma335;
-using EmployeeManagementSystem.Domain.Entities;
-using EmployeeManagementSystem.Domain.Entities.Base;
-using Task = EmployeeManagementSystem.Domain.Entities.Task;
+﻿using EmployeeManagementSystem.Domain.Entities.Base;
 
 namespace EmployeeManagementSystem.Domain.Entities;
 
@@ -17,7 +14,7 @@ public class Project : IEntity<Guid>
 
     public DateOnly EndDate { get; set; }
 
-    public virtual ICollection<Task> Tasks { get; set; } = new List<Task>();
+    public virtual ICollection<TaskItem> Tasks { get; set; } = new List<TaskItem>();
 
     public virtual ICollection<Manager> Managers { get; set; } = new List<Manager>();
     

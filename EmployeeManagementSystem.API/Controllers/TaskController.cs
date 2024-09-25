@@ -1,11 +1,6 @@
-﻿using AutoMapper;
-using EmployeeManagementSystem.Application.Abstractions;
-using EmployeeManagementSystem.Domain.Abstractions;
+﻿using EmployeeManagementSystem.Application.Abstractions;
 using EmployeeManagementSystem.Domain.Dtos;
-using EmployeeManagementSystem.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Task = EmployeeManagementSystem.Domain.Entities.Task;
 
 namespace EmployeeManagementSystem.API.Controllers;
 

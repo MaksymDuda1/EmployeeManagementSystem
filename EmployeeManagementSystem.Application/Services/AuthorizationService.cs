@@ -6,7 +6,6 @@ using EmployeeManagementSystem.Domain.Entities;
 using EmployeeManagementSystem.Domain.Enums;
 using EmployeeManagementSystem.Domain.Exceptions;
 using Microsoft.AspNetCore.Identity;
-using Task = System.Threading.Tasks.Task;
 
 namespace EmployeeManagementSystem.Application.Services;
 
@@ -49,6 +48,6 @@ public class AuthorizationService (
         await userManager.AddToRoleAsync(user, UserRole.Initial.ToString());
         await userManager.UpdateAsync(user);
 
-        return await tokenService.GenerateToken(user);
+        return await tokenService.GenerateToken(user, true);
     }
 }

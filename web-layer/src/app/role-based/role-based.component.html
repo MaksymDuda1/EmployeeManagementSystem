@@ -1,0 +1,94 @@
+<div class="welcome-section text-center">
+    <p class="welcome-text welcome-name">Welcome back, {{userName}}</p>
+    <p class="welcome-text welcome-role">You are logged in as {{role}}!</p>
+</div>
+
+<div class="main container-fluid">
+    <div *ngIf="role == 'Employee'" class="employee role-section mx-auto">
+        <div class="tasks">
+            <div class="brick changeRole">
+                <a href="#">
+                    <img src="assets/tasks.png" alt="tasks">
+                    <p>My Tasks</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="managers">
+            <div class="brick changeRole">
+                <a href="#">
+                    <img src="assets/tasks.png" alt="tasks">
+                    <p>Managers</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="projects">
+            <div class="brick changeRole">
+                <a href="#">
+                    <img src="assets/projects.png" alt="projects">
+                    <p>My Projects</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="role == 'Manager'" class="manager role-section mx-auto">
+        <div class="createProject">
+            <div class="brick changeRole">
+                <a href="#">
+                    <img src="assets/createProject.png" alt="create project">
+                    <p>Create Project</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="addTask">
+            <div class="brick changeRole">
+                <a href="#">
+                    <img src="assets/addTask.png" alt="add task">
+                    <p>Add Task</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="addEmployee">
+            <div class="brick changeRole">
+                <a href="#">
+                    <img src="assets/addEmployee.png" alt="add employee">
+                    <p>Add Employee</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="role == 'Admin'" class="admin role-section mx-auto">
+        <div class="brick employees">
+            <a href="#">
+                <img src="assets/employees.png" alt="employees">
+                <p>List of Employees</p>
+            </a>
+        </div>
+
+        <div class="brick managers">
+            <a href="">
+                <img src="assets/managersAdmin.png" alt="managers">
+                <p>List of Managers</p>
+            </a>
+        </div>
+
+        <div class="brick projects">
+            <a href="">
+                <img src="assets/projects.png" alt="projects">
+                <p>List of Projects</p>
+            </a>
+        </div>
+
+        <div class="brick changeRole">
+            <a href="#">
+                <img src="assets/changeRole.png" alt="change role">
+                <p>Role change requests</p>
+            </a>
+        </div>
+    </div>
+</div>

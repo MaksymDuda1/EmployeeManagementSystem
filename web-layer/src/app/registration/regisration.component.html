@@ -1,0 +1,36 @@
+<div class="container">
+    <form>
+      <div class="main-text">Registration</div>
+        <div class="fullname d-flex">
+            <div class="form-group">
+                <label for="inputFirstName">First Name</label>
+                <input type="text" class="form-control" id="inputFirstName" placeholder="Enter first name" name="firstName" [(ngModel)]="registrationModel.firstName">
+              </div>
+          
+              <div class="form-group">
+                <label for="inputLastName">Second Name</label>
+                <input type="text" class="form-control" id="inputLastName" placeholder="Enter second name" name="lastName" [(ngModel)]="registrationModel.secondName">
+              </div>
+        </div>
+
+      <div class="form-group">
+        <label for="inputUsername">Username</label>
+        <input type="text" class="form-control" id="inputUsername" placeholder="Enter username" name="username" [(ngModel)]="registrationModel.username">
+      </div>
+  
+      <div class="form-group">
+        <label for="inputEmail">Email address</label>
+        <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email" name="email" [(ngModel)]="registrationModel.email">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+  
+      <div class="form-group">
+        <label for="inputPassword">Password</label>
+        <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password" [(ngModel)]="registrationModel.password">
+      </div>
+  
+      <button type="submit" (click)="onRegistration()" class="btn btn-dark">Register</button>
+      <a routerLink="/sign-in"><small id="loginHelp" class="form-text text-muted">Already have an account? Click here to login.</small></a>
+    </form>
+    {{errorMessage}}
+  </div>

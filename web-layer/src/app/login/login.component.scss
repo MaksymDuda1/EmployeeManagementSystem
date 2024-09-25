@@ -3,13 +3,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 16vh;
+    margin-top: 12vh;
     padding: 40px;
-    width: 64vw;
+    width: 44vw;
 }
 
 .form-group {
     margin-bottom: 20px;
+    width: 100%;
 }
 
 .main-text {
@@ -34,8 +35,14 @@ a:hover {
     transition: color 0.5s ease;
 }
 
-@media (max-height:600px) {
+@media (max-height:768) {
     .container {
         margin-top: 0px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 56vh;
     }
 }

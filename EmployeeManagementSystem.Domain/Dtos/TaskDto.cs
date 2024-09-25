@@ -1,5 +1,4 @@
 ﻿using EmployeeManagementSystem.Domain.Dtos.Base;
-using EmployeeManagementSystem.Domain.Enums;
 
 namespace EmployeeManagementSystem.Domain.Dtos;
 
