@@ -10,39 +10,54 @@ public class ManagerController(IManagerService managerService) : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllManagers()
     {
-        var managers = await managerService.GetAllManagersAsync();
+        var result = await managerService.GetAllManagersAsync();
 
-        return Ok(managers);
+        if (result.IsFailed)
+            return BadRequest(result.Errors.Select(e => e.Message));
+
+        return Ok(result.Value);
     }
 
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetManagerById(Guid id)
     {
-        var manager = await managerService.GetManagerByIdAsync(id);
-        
-        return Ok(manager);
+        var result = await managerService.GetManagerByIdAsync(id);
+
+        if (result.IsFailed)
+            return BadRequest(result.Errors.Select(e => e.Message));
+
+        return Ok(result.Value);
     }
 
     [HttpPost]
     public async Task<IActionResult> AddManager([FromBody] ManagerDto request)
     {
-        await managerService.AddManagerAsync(request);
+        var result = await managerService.AddManagerAsync(request);
 
-        return Created($"api/project/{request.Id}", request);
+        if (result.IsFailed)
+            return BadRequest(result.Errors.Select(e => e.Message));
+        
+        return Ok();
     }
 
     [HttpPost("upsert")]
     public async Task<IActionResult> UpsertManager([FromBody] ManagerDto request)
     {
-        await managerService.UpsertManagerAsync(request);
+        var result = await managerService.UpsertManagerAsync(request);
 
+        if (result.IsFailed)
+            return BadRequest(result.Errors.Select(e => e.Message));
+        
         return Ok();
     }
 
     [HttpPut]
     public async Task<IActionResult> UpdateManager([FromBody] ManagerDto request)
     {
-        await managerService.UpdateManagerAsync(request);
+        var result = await managerService.UpdateManagerAsync(request);
+         
+        if (result.IsFailed)
+            return BadRequest(result.Errors.Select(e => e.Message));
 
         return Ok();
     }
@@ -50,7 +65,10 @@ public class ManagerController(IManagerService managerService) : ControllerBase
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteManager(Guid id)
     {
-        await managerService.DeleteManagerAsync(id);
+        var result = await managerService.DeleteManagerAsync(id);
+
+        if (result.IsFailed)
+            return BadRequest(result.Errors.Select(e => e.Message));
         
         return Ok();
     }

@@ -1,25 +1,42 @@
 <div class="container">
-  <form>
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
     <div class="main-text">Login page</div>
 
-    <div class="form-group">
-      <label for="exampleInputusername1">Username</label>
-      <input type="username" class="form-control" id="exampleInputusername1" aria-describedby="usernameHelp"
-        placeholder="Enter username" name="username" [(ngModel)]="loginModel.username">
+    <div class="form-group-item">
+      <label for="inputUsername">Username</label>
+      <input type="text" formControlName="username" class="form-control" id="inputUsername"
+        placeholder="Enter username">
+      @if(loginForm.controls.username.invalid && (loginForm.controls.username.touched)){
+      @if(loginForm.controls.username.errors?.["required"]){
+      <small>*Username is required field</small>
+      }}
     </div>
 
-    <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-        placeholder="Enter email" name="email" [(ngModel)]="loginModel.email">
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <div class="form-group-item">
+      <label for="inputEmail">Email address</label>
+      <input type="email" formControlName="email" class="form-control" id="inputEmail" placeholder="Enter email">
+      @if(loginForm.controls.email.invalid && (loginForm.controls.email.touched)){
+
+      @if(loginForm.controls.email.errors?.["email"]){
+      <small>*Email is not valid</small>
+      }
+      @if(loginForm.controls.email.errors?.["required"]){
+      <small>*Email is required field</small>
+      }}
     </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password"
-        [(ngModel)]="loginModel.password">
+
+    <div class="form-group-item">
+      <label for="inputPassword">Password</label>
+      <input type="password" formControlName="password" class="form-control" id="inputPassword" placeholder="Password">
+      @if(loginForm.controls.password.invalid && (loginForm.controls.password.touched)){
+      @if(loginForm.controls.password.errors?.["required"]){
+      <small>*Password is required field</small>
+      }
+      @if(loginForm.controls.password.errors?.["minlength"]){
+      <small>*Min length is 8 symbols</small>
+      }}
     </div>
-    <button type="submit" (click)="onLogin()" class="btn btn-dark">Login</button>
+    <button type="submit" class="btn btn-dark">Login</button>
     <a routerLink="/sign-up"><small id="emailHelp" class="form-text text-muted">Don't have acount? Click
         here.</small></a>
   </form>

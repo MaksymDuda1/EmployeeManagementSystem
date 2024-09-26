@@ -10,47 +10,65 @@ public class TaskController(ITaskService taskService) : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllTasks()
     {
-        var tasks = await taskService.GetAllTasksAsync();
+        var result = await taskService.GetAllTasksAsync();
 
-        return Ok(tasks);
+        if (result.IsFailed)
+            return BadRequest(result.Errors.Select(e => e.Message));
+        
+        return Ok(result.Value);
     }
 
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetTaskById(Guid id)
     {
-        var task = await taskService.GetTaskByIdAsync(id);
+        var result = await taskService.GetTaskByIdAsync(id);
         
-        return Ok(task);
+        if (result.IsFailed)
+            return BadRequest(result.Errors.Select(e => e.Message));
+        
+        return Ok(result.Value);
     }
 
     [HttpPost]
     public async Task<IActionResult> AddTask([FromBody] TaskDto request)
     {
-        await taskService.AddTaskAsync(request);
+        var result = await taskService.AddTaskAsync(request);
 
-        return Created($"api/task/{request.Id}", request);
+        if (result.IsFailed)
+            return BadRequest(result.Errors.Select(e => e.Message));
+        
+        return Ok();
     }
 
     [HttpPost("upsert")]
     public async Task<IActionResult> UpsertTask([FromBody] TaskDto request)
     {
-        await taskService.UpsertTaskAsync(request);
+       var result = await taskService.UpsertTaskAsync(request);
 
-        return Ok();
+       if (result.IsFailed)
+           return BadRequest(result.Errors.Select(e => e.Message));
+        
+       return Ok();
     }
 
     [HttpPut]
     public async Task<IActionResult> UpdateTask([FromBody] TaskDto request)
     {
-        await taskService.UpdateTaskAsync(request);
+        var result = await taskService.UpdateTaskAsync(request);
 
+        if (result.IsFailed)
+            return BadRequest(result.Errors.Select(e => e.Message));
+        
         return Ok();
     }
 
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteTask(Guid id)
     {
-        await taskService.DeleteTaskAsync(id);
+        var result = await taskService.DeleteTaskAsync(id);
+        
+        if (result.IsFailed)
+            return BadRequest(result.Errors.Select(e => e.Message));
         
         return Ok();
     }

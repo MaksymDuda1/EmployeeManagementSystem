@@ -3,7 +3,9 @@ using AutoMapper;
 using EmployeeManagementSystem.Application.Abstractions;
 using EmployeeManagementSystem.Domain.Abstractions;
 using EmployeeManagementSystem.Domain.Dtos;
+using EmployeeManagementSystem.Domain.Errors;
 using EmployeeManagementSystem.Domain.Exceptions;
+using FluentResults;
 
 namespace EmployeeManagementSystem.Application.Services;
 
@@ -13,16 +15,16 @@ public class TaskService(
     IProjectRepository projectRepository,
     IMapper mapper) : ITaskService
 {
-    public async Task<List<TaskDto>> GetAllTasksAsync()
+    public async Task<Result<List<TaskDto>>> GetAllTasksAsync()
     {
         var tasks = await taskRepository.GetAllAsync(
             t => t.Project,
             t => t.Employee);
 
-        return tasks.Select(mapper.Map<TaskDto>).ToList();
+        return Result.Ok(tasks.Select(mapper.Map<TaskDto>).ToList());
     }
 
-    public async Task<TaskDto> GetTaskByIdAsync(Guid id)
+    public async Task<Result<TaskDto>> GetTaskByIdAsync(Guid id)
     {
         var task = await taskRepository.GetSingleByConditionAsync(
             t => t.Id == id,
@@ -30,50 +32,53 @@ public class TaskService(
             t => t.Employee);
 
         if (task == null)
-            throw new EntityNotFoundException("Entity not found");
+            return new EntityNotFoundError("Entity not found");
 
         return mapper.Map<TaskDto>(task);
     }
 
-    public async Task AddTaskAsync(TaskDto taskDto)
+    public async Task<Result> AddTaskAsync(TaskDto taskDto)
     {
         var employee = await employeeRepository
             .GetSingleByConditionAsync(e => e.Id == taskDto.EmployeeId);
-        
-        if(employee == null)
-            throw new EntityNotFoundException("Employee not found");
-        
+
+        if (employee == null)
+            return new EntityNotFoundError("Employee not found");
+
         var project = await projectRepository
             .GetSingleByConditionAsync(e => e.Id == taskDto.ProjectId);
-        
-        if(project == null)
-            throw new EntityNotFoundException("Project not found");
-        
-        if(taskDto.DeadlineDate > project.EndDate)
-            throw new ValidationException("Task deadline date cannot be greater than project end date");
+
+        if (project == null)
+            return new EntityNotFoundError("Project not found");
+
+        if (taskDto.DeadlineDate > project.EndDate)
+            return new ValidationError("Task deadline date cannot be greater than project end date");
 
         var task = mapper.Map<Domain.Entities.TaskItem>(taskDto);
         await taskRepository.InsertAsync(task);
+        
+        return Result.Ok();
     }
 
-    public async Task UpdateTaskAsync(TaskDto taskDto)
+    public async Task<Result> UpdateTaskAsync(TaskDto taskDto)
     {
         var task = await taskRepository
             .GetSingleByConditionAsync(e => e.Id == taskDto.Id);
 
         if (task == null)
-            throw new EntityNotFoundException("Entity not found");
-        
+            return new EntityNotFoundError("Entity not found");
+
         var employee = await employeeRepository
             .GetSingleByConditionAsync(e => e.Id == taskDto.EmployeeId);
-        
-        if(employee == null)
-            throw new EntityNotFoundException("Employee not found");
+
+        if (employee == null)
+            return new EntityNotFoundError("Employee not found");
 
         await taskRepository.UpdateAsync(mapper.Map(taskDto, task));
+        return Result.Ok();
     }
 
-    public async Task UpsertTaskAsync(TaskDto taskDto)
+    public async Task<Result> UpsertTaskAsync(TaskDto taskDto)
     {
         var task = await taskRepository
             .GetSingleByConditionAsync(e => e.Id == taskDto.Id);
@@ -82,10 +87,13 @@ public class TaskService(
             await AddTaskAsync(taskDto);
         else
             await taskRepository.UpdateAsync(mapper.Map(taskDto, task));
+        
+        return Result.Ok();
     }
 
-    public async Task DeleteTaskAsync(Guid id)
+    public async Task<Result> DeleteTaskAsync(Guid id)
     {
         await taskRepository.DeleteAsync(id);
+        return Result.Ok();
     }
 }

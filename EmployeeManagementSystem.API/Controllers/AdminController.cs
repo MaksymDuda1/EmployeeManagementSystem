@@ -11,14 +11,22 @@ public class AdminController(IAdminService adminService)
     [HttpGet]
     public async Task<IActionResult> GetUsersWithoutRoles()
     {
-        var users = await adminService.GetUsersWithoutRoleAsync();
-        return Ok(users);
+        var result = await adminService.GetUsersWithoutRoleAsync();
+        
+        if (result.IsFailed)
+            return BadRequest(result.Errors.Select(e =>e.Message));
+        
+        return Ok(result.Value);
     }
 
     [HttpPut]
     public async Task<IActionResult> UpdateUsers([FromBody] ChangeUserRoleDto request)
     {
-        await adminService.ChangeUserRole(request);
+        var result = await adminService.ChangeUserRole(request);
+        
+        if(result.IsFailed)
+            return BadRequest(result.Errors.Select(e =>e.Message));
+        
         return Ok();
     }
 }

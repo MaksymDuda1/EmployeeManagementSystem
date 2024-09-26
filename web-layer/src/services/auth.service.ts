@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { LoginModel } from "../models/login.model";
 import { RegistrationModel } from "../models/registration.model";
+import { ApiTokenModel } from "../models/api-token.model";
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -13,11 +14,11 @@ export class AuthService {
     private path: string = "api/auth";
 
 
-    login(loginModel: LoginModel): Observable<any> {
-        return this.client.post<any>(`${this.path}/login`, loginModel);
+    login(loginForm: any): Observable<ApiTokenModel> {
+        return this.client.post<any>(`${this.path}/login`, loginForm);
     }
 
-    registration(registrationModel: RegistrationModel): Observable<any> {
-        return this.client.post<any>(`${this.path}/registration`, registrationModel);
+    registration(registrationForm: any): Observable<ApiTokenModel> {
+        return this.client.post<any>(`${this.path}/registration`, registrationForm);
     }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { LocalService } from '../../services/local.service';
 import { LoginModel } from '../../models/login.model';
@@ -7,13 +7,13 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Role } from '../../enums/role.enum';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -26,12 +26,27 @@ export class LoginComponent {
     private localService: LocalService,
     private jwtHelperService: JwtHelperService) { }
 
-  onLogin(){
-    this.authService.login(this.loginModel).subscribe((tokenModel: ApiTokenModel) => {
-      if(tokenModel.accessToken != null){
-        this.localService.put(LocalService.AuthTokenName, tokenModel.accessToken);
+  fb = inject(NonNullableFormBuilder);
+  loginForm = this.fb.group({
+    username: this.fb.control('', { validators: [Validators.required] }),
+    email: this.fb.control('', { validators: [Validators.required, Validators.email] }),
+    password: this.fb.control('', { validators: [Validators.required, Validators.minLength(8)] }),
+  });
 
+  onLogin() {
+    if(this.loginForm.valid)
+    this.authService.login(this.loginForm.value).subscribe((tokenModel: ApiTokenModel) => {
+      if (tokenModel.accessToken != null) {
+        this.localService.put(LocalService.AuthTokenName, tokenModel.accessToken);
         var decodedData = this.jwtHelperService.decodeToken(tokenModel.accessToken);
+
+
+        if (decodedData.role == Role.Initial) {
+          console.log(decodedData.role)
+          window.location.href = 'waiting-room';
+          return;
+        }
+
         window.location.href = 'role-based';
 
         // if(decodedData.role = Role.Admin)
@@ -40,12 +55,10 @@ export class LoginComponent {
         //   window.location.href = 'manager'
         // if(decodedData.role = Role.Employee)
         //   window.location.href = 'employee'
-        // if(decodedData.role = Role.Initial)
-        //   window.location.href = 'intital'
-      }     
-    },
-  errorResponse => {
-    this.errorMessage = errorResponse;
-  })
+      }
+    })
+    else{
+      this.loginForm.markAllAsTouched();
+    }
   }
 }

@@ -18,25 +18,6 @@ public class ExceptionHandlingMiddleware(
         catch (Exception e)
         {
             var code = StatusCodes.Status500InternalServerError;
-
-            switch (e)
-            {
-                case EntityNotFoundException entityNotFoundException:
-                    code = StatusCodes.Status404NotFound;
-                    break;
-                case ValidationException validationException:
-                    code = StatusCodes.Status400BadRequest;
-                    break;
-                case AuthenticationException authenticationException:
-                    code = StatusCodes.Status401Unauthorized;
-                    break;
-                case CredentialValidationException credentialValidationException:
-                    code = StatusCodes.Status401Unauthorized;
-                    break;
-                default:
-                    code = StatusCodes.Status500InternalServerError;
-                    break;
-            }
             
             logger.LogError(e, "Exception occurred: {Message}", e.Message);
             var problemDetails = new ProblemDetails()

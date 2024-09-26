@@ -1,13 +1,14 @@
 ﻿using EmployeeManagementSystem.Domain.Dtos;
+using FluentResults;
 
 namespace EmployeeManagementSystem.Application.Abstractions;
 
 public interface ITaskService
 {
-    Task<List<TaskDto>> GetAllTasksAsync();
-    Task<TaskDto> GetTaskByIdAsync(Guid id);
-    Task AddTaskAsync(TaskDto taskDto);
-    Task UpdateTaskAsync(TaskDto taskDto);
-    Task UpsertTaskAsync(TaskDto taskDto);
-    Task DeleteTaskAsync(Guid id);
+    Task<Result<List<TaskDto>>> GetAllTasksAsync();
+    Task<Result<TaskDto>> GetTaskByIdAsync(Guid id);
+    Task<Result> AddTaskAsync(TaskDto taskDto);
+    Task<Result> UpdateTaskAsync(TaskDto taskDto);
+    Task<Result> UpsertTaskAsync(TaskDto taskDto);
+    Task<Result> DeleteTaskAsync(Guid id);
 }

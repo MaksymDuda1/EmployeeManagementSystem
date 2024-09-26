@@ -11,4 +11,9 @@ import { LocalService } from '../../services/local.service';
 })
 export class TopMenuComponent {
   constructor(private localService: LocalService){}
+
+  onLogout(){
+    this.localService.remove(LocalService.AuthTokenName);
+    window.location.href = "landing"
+  }
 }

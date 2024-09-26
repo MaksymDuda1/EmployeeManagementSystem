@@ -10,23 +10,32 @@ public class EmployeeController(IEmployeeService employeeService) : ControllerBa
     [HttpGet]
     public async Task<IActionResult> GetAllEmployees()
     {
-        var employees = await employeeService.GetAllEmployeesAsync();
+        var result = await employeeService.GetAllEmployeesAsync();
 
-        return Ok(employees);
+        if(result.IsFailed)
+            return BadRequest(result.Errors.Select(e => e.Message));
+        
+        return Ok(result.Value);
     }
 
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetEmployeeById(Guid id)
     {
-        var employee = await employeeService.GetEmployeeByIdAsync(id);
+        var result = await employeeService.GetEmployeeByIdAsync(id);
         
-        return Ok(employee);
+        if(result.IsFailed)
+            return BadRequest(result.Errors.Select(e => e.Message));
+        
+        return Ok(result.Value);
     }
 
     [HttpPost]
     public async Task<IActionResult> AddEmployee([FromBody] EmployeeDto request)
     {
-        await employeeService.AddEmployeeAsync(request);
+        var result = await employeeService.AddEmployeeAsync(request);
+        
+        if(result.IsFailed)
+            return BadRequest(result.Errors.Select(e => e.Message));
 
         return Created($"api/employee/{request.Id}", request);
     }
@@ -34,23 +43,32 @@ public class EmployeeController(IEmployeeService employeeService) : ControllerBa
     [HttpPost("upsert")]
     public async Task<IActionResult> UpsertEmployee([FromBody] EmployeeDto request)
     {
-        await employeeService.UpsertEmployeeAsync(request);
+        var result = await employeeService.UpsertEmployeeAsync(request);
 
+        if(result.IsFailed)
+            return BadRequest(result.Errors.Select(e => e.Message));
+        
         return Ok();
     }
 
     [HttpPut]
     public async Task<IActionResult> UpdateEmployee([FromBody] EmployeeDto request)
     {
-        await employeeService.UpdateEmployeeAsync(request);
+        var result = await employeeService.UpdateEmployeeAsync(request);
 
+        if(result.IsFailed)
+            return BadRequest(result.Errors.Select(e => e.Message));
+        
         return Ok();
     }
 
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteEmployee(Guid id)
     {
-        await employeeService.DeleteEmployeeAsync(id);
+        var result = await employeeService.DeleteEmployeeAsync(id);
+        
+        if(result.IsFailed)
+            return BadRequest(result.Errors.Select(e => e.Message));
         
         return Ok();
     }

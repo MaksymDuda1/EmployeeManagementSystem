@@ -13,11 +13,12 @@ public class TokenController(ITokenService tokenService) : ControllerBase
         if (tokenModel is null)
             return BadRequest();
 
-        var refreshedTokenModel = await tokenService.RefreshToken(tokenModel);
-        if (refreshedTokenModel.AccessToken is null)
-            return BadRequest();
+        var result = await tokenService.RefreshToken(tokenModel);
 
-        return Ok(refreshedTokenModel);
+        if (result.IsFailed)
+            return BadRequest(result.Errors.Select(e => e.Message));
+
+        return Ok(result.Value);
     }
 
     [HttpPost("revoke/{email}")]
@@ -27,8 +28,9 @@ public class TokenController(ITokenService tokenService) : ControllerBase
             return BadRequest();
 
         var result = await tokenService.RevokeTokenAsync(email);
+
         if (!result.Succeeded)
-            return BadRequest();
+            return BadRequest(result.Errors.Select(e => e.Description));
 
         return NoContent();
     }

@@ -3,7 +3,9 @@ using EmployeeManagementSystem.Application.Abstractions;
 using EmployeeManagementSystem.Domain.Abstractions;
 using EmployeeManagementSystem.Domain.Dtos;
 using EmployeeManagementSystem.Domain.Entities;
+using EmployeeManagementSystem.Domain.Errors;
 using EmployeeManagementSystem.Domain.Exceptions;
+using FluentResults;
 using FluentValidation;
 using Task = System.Threading.Tasks.Task;
 
@@ -13,20 +15,20 @@ public class ProjectService(
     IProjectRepository projectRepository,
     IManagerRepository managerRepository,
     IEmployeeRepository employeeRepository,
-   IValidator<ProjectDto> projectValidator,
+    IValidator<ProjectDto> projectValidator,
     IMapper mapper) : IProjectService
 {
-    public async Task<List<ProjectDto>> GetAllProjectsAsync()
+    public async Task<Result<List<ProjectDto>>> GetAllProjectsAsync()
     {
         var projects = await projectRepository.GetAllAsync(
             p => p.Tasks,
             p => p.Employees,
             p => p.Managers);
 
-        return projects.Select(mapper.Map<ProjectDto>).ToList();
+        return Result.Ok(projects.Select(mapper.Map<ProjectDto>).ToList());
     }
 
-    public async Task<ProjectDto> GetProjectByIdAsync(Guid projectId)
+    public async Task<Result<ProjectDto>> GetProjectByIdAsync(Guid projectId)
     {
         var project = await projectRepository
             .GetSingleByConditionAsync(p => p.Id == projectId);
@@ -34,70 +36,70 @@ public class ProjectService(
         if (project == null)
             throw new EntityNotFoundException("Project not found");
 
-        return mapper.Map<ProjectDto>(project);
+        return Result.Ok(mapper.Map<ProjectDto>(project));
     }
 
-    public async Task AddProjectAsync(ProjectDto projectDto)
+    public async Task<Result> AddProjectAsync(ProjectDto projectDto)
     {
-        var result = await projectValidator.ValidateAsync(projectDto);
-
-        if (!result.IsValid)
-        {
-            throw new ValidationException(result.Errors);
-        }
-
         var project = mapper.Map<Project>(projectDto);
         await projectRepository.InsertAsync(project);
+        
+        return Result.Ok();
     }
 
-    public async Task AddManagerToTheProjectAsync(ManagerProjectDto managerProjectDto)
+    public async Task<Result> AddManagerToTheProjectAsync(ManagerProjectDto managerProjectDto)
     {
         var manager = await managerRepository
             .GetSingleByConditionAsync(p => p.Id == managerProjectDto.ManagerId);
 
         if (manager == null)
-            throw new EntityNotFoundException("Manager not found");
+            return new EntityNotFoundError("Manager not found");
 
         var project = await projectRepository
             .GetSingleByConditionAsync(p => p.Id == managerProjectDto.ProjectId);
 
         if (project == null)
-            throw new EntityNotFoundException("Project not found");
+            return new EntityNotFoundError("Project not found");
 
         project.Managers.Add(manager);
         await projectRepository.UpdateAsync(project);
+        
+        return Result.Ok();
     }
 
-    public async Task AddEmployeeToTheProjectAsync(ProjectEmployeeDto projectEmployeeDto)
+    public async Task<Result> AddEmployeeToTheProjectAsync(ProjectEmployeeDto projectEmployeeDto)
     {
         var employee = await employeeRepository
             .GetSingleByConditionAsync(e => e.Id == projectEmployeeDto.EmployeeId);
 
         if (employee == null)
-            throw new EntityNotFoundException("Employee not found");
+            return new EntityNotFoundError("Employee not found");
 
         var project = await projectRepository
             .GetSingleByConditionAsync(e => e.Id == projectEmployeeDto.ProjectId);
 
         if (project == null)
-            throw new EntityNotFoundException("Project not found");
+            return new EntityNotFoundError("Project not found");
 
         project.Employees.Add(employee);
         await projectRepository.UpdateAsync(project);
+        
+        return Result.Ok();
     }
 
-    public async Task UpdateProjectAsync(ProjectDto projectDto)
+    public async Task<Result> UpdateProjectAsync(ProjectDto projectDto)
     {
         var project = await projectRepository
             .GetSingleByConditionAsync(p => p.Id == projectDto.Id);
 
         if (project == null)
-            throw new Exception("Project not found");
+            return new EntityNotFoundError("Project not found");
 
         await projectRepository.UpdateAsync(mapper.Map(projectDto, project));
+        return Result.Ok();
     }
 
-    public async Task UpsertProjectAsync(ProjectDto projectDto)
+    public async Task<Result> UpsertProjectAsync(ProjectDto projectDto)
     {
         var project = await projectRepository
             .GetSingleByConditionAsync(e => e.Id == projectDto.Id);
@@ -106,10 +108,13 @@ public class ProjectService(
             await AddProjectAsync(projectDto);
         else
             await projectRepository.UpdateAsync(mapper.Map(projectDto, project));
+        
+        return Result.Ok();
     }
 
-    public async Task DeleteProjectAsync(Guid projectId)
+    public async Task<Result> DeleteProjectAsync(Guid projectId)
     {
         await projectRepository.DeleteAsync(projectId);
+        return Result.Ok();
     }
 }

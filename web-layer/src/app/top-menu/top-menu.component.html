@@ -1,10 +1,12 @@
 <nav class="navbar navbar-light">
-    <div class="container">
+    <div class="container d-flex justify-content-between">
         <div class="logo">
             <a routerLink="/home">
                 <span class="logo-text">Employee Management System</span>
             </a>
         </div>
+
+        <button (click)="onLogout()" class="btn btn-dark">Logout</button>
     </div>
 </nav>
 <router-outlet />

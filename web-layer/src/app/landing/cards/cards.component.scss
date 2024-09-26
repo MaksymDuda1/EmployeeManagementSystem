@@ -2,15 +2,16 @@
     height: 32vh;
 }
 
-.card{
+.card {
     width: 30rem;
 }
 
 @media (max-width: 768px) {
     .cards {
-        display: block !important;        
+        display: block !important;
     }
-    .card{
+
+    .card {
         width: 80vw;
         margin-bottom: 3rem;
     }

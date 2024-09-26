@@ -12,12 +12,22 @@ public class AuthorizationController(IAuthorizationService authorizationService)
     [HttpPost("login")]
     public async Task<ActionResult<TokenApiModel>> Login(LoginDto request)
     {
-        return Ok(await authorizationService.Login(request));
+        var result = await authorizationService.Login(request);
+
+        if (result.IsFailed)
+            return BadRequest(result.Errors.Select(e => e.Message));
+
+        return Ok(result.Value);
     }
 
     [HttpPost("registration")]
     public async Task<IActionResult> Registration(RegistrationDto request)
     {
-        return Ok(await authorizationService.Registration(request));
+        var result = await authorizationService.Registration(request);
+        
+        if (result.IsFailed)
+            return BadRequest(result.Errors.Select(e => e.Message));
+
+        return Ok(result.Value);
     }
 }

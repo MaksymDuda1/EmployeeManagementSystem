@@ -14,10 +14,13 @@ public class ProjectValidator : AbstractValidator<ProjectDto>
             .WithMessage("Customer cannot be empty");
         
         RuleFor(p => p.StartDate)
+            .NotEmpty().WithMessage("Start date cannot be empty")
             .GreaterThanOrEqualTo(DateOnly.FromDateTime(DateTime.Today))
             .WithMessage("Start date cannot be less than today");
         
-        RuleFor(p => p.EndDate).GreaterThanOrEqualTo(p => p.StartDate)
+        RuleFor(p => p.EndDate)
+            .NotEmpty().WithMessage("End date cannot be empty")
+            .GreaterThanOrEqualTo(p => p.StartDate)
             .WithMessage("End date cannot be less than start date");
     }
 }

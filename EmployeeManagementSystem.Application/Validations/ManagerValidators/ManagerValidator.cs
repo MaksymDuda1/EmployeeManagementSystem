@@ -10,5 +10,7 @@ public class ManagerValidator : AbstractValidator<ManagerDto>
     {
         RuleFor(m => m.Department).NotNull().NotEmpty()
             .WithMessage("Department cannot be empty");
+        RuleFor(m => m.UserId).NotNull().NotEmpty()
+            .WithMessage("UserId cannot be empty");
     }
 }

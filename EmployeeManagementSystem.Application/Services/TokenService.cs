@@ -6,7 +6,9 @@ using System.Text;
 using EmployeeManagementSystem.Application.Abstractions;
 using EmployeeManagementSystem.Application.Models;
 using EmployeeManagementSystem.Domain.Entities;
+using EmployeeManagementSystem.Domain.Errors;
 using EmployeeManagementSystem.Domain.Exceptions;
+using FluentResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -28,7 +30,7 @@ public class TokenService : ITokenService
         jwtSecret = this.configuration["JWT:Secret"];
     }
 
-    public async Task<TokenApiModel> RefreshToken(TokenApiModel token)
+    public async Task<Result<TokenApiModel>> RefreshToken(TokenApiModel token)
     {
         try
         {
@@ -37,14 +39,14 @@ public class TokenService : ITokenService
             var user = await userManager.FindByNameAsync(username);
 
             if (user is null)
-                throw new EntityNotFoundException("User Not Found");
+                return new EntityNotFoundError("User Not Found");
 
             if (user.RefreshToken != token.RefreshToken)
-                throw new CredentialValidationException("Refresh token is not recognised.");
+                return new ValidationError("Refresh token is not recognised.");
 
 
             if (user.RefreshTokenExpiration <= DateTime.UtcNow)
-                throw new ValidationException("Refresh token is not valid due to expiration");
+                return new ValidationError("Refresh token is not valid due to expiration");
 
             var tokenModel = await GenerateToken(user);
             return tokenModel;

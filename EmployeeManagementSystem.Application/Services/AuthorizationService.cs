@@ -4,33 +4,39 @@ using EmployeeManagementSystem.Application.Models;
 using EmployeeManagementSystem.Domain.Dtos;
 using EmployeeManagementSystem.Domain.Entities;
 using EmployeeManagementSystem.Domain.Enums;
+using EmployeeManagementSystem.Domain.Errors;
 using EmployeeManagementSystem.Domain.Exceptions;
+using FluentResults;
 using Microsoft.AspNetCore.Identity;
 
 namespace EmployeeManagementSystem.Application.Services;
 
-public class AuthorizationService (
+public class AuthorizationService(
     UserManager<User> userManager,
     SignInManager<User> signInManager,
     ITokenService tokenService) : IAuthorizationService
 {
-    public async Task<TokenApiModel> Login(LoginDto loginDto)
+    public async Task<Result<TokenApiModel>> Login(LoginDto loginDto)
     {
+        var userByUsername = await userManager.FindByNameAsync(loginDto.UserName);
+        
+        if (userByUsername == null) 
+            return new EntityNotFoundError("No user with given username was found");
+
         var userByEmail = await userManager.FindByEmailAsync(loginDto.Email);
 
         if (userByEmail == null)
-            throw new EntityNotFoundException("No user with given email was found");
+            return new EntityNotFoundError("No user with given email was found");
 
         var result = await signInManager
             .PasswordSignInAsync(userByEmail.UserName, loginDto.Password, false, false);
 
-        if (!result.Succeeded)
-            throw new CredentialValidationException("Wrong password");
-
-        return await tokenService.GenerateToken(userByEmail, true);
+        return !result.Succeeded
+            ? new ValidationError("Wrong password")
+            : Result.Ok(await tokenService.GenerateToken(userByEmail, true));
     }
 
-    public async Task<TokenApiModel> Registration(RegistrationDto registrationDto)
+    public async Task<Result<TokenApiModel>> Registration(RegistrationDto registrationDto)
     {
         var user = new User()
         {
@@ -48,6 +54,6 @@ public class AuthorizationService (
         await userManager.AddToRoleAsync(user, UserRole.Initial.ToString());
         await userManager.UpdateAsync(user);
 
-        return await tokenService.GenerateToken(user, true);
+        return Result.Ok(await tokenService.GenerateToken(user, true));
     }
 }
