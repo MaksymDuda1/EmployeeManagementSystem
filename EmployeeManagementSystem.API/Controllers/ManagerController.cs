@@ -1,5 +1,6 @@
 ﻿using EmployeeManagementSystem.Application.Abstractions;
 using EmployeeManagementSystem.Domain.Dtos;
+using EmployeeManagementSystem.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagementSystem.API.Controllers;
@@ -22,6 +23,17 @@ public class ManagerController(IManagerService managerService) : ControllerBase
     public async Task<IActionResult> GetManagerById(Guid id)
     {
         var result = await managerService.GetManagerByIdAsync(id);
+
+        if (result.IsFailed)
+            return BadRequest(result.Errors.Select(e => e.Message));
+
+        return Ok(result.Value);
+    }
+    
+    [HttpGet("by-userId/{userId:guid}")]
+    public async Task<IActionResult> GetManagerByUserId(Guid userId)
+    {
+        var result = await managerService.GetManagerByUserIdAsync(userId);
 
         if (result.IsFailed)
             return BadRequest(result.Errors.Select(e => e.Message));

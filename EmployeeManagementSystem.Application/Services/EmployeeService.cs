@@ -49,8 +49,7 @@ public class EmployeeService(
         
         if(existingEmployee != null)
             return new ValidationError("Current user  already is employee");
-
-
+        
         if (user == null)
             return new EntityNotFoundError("User not found");
 

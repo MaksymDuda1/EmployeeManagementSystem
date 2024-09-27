@@ -33,17 +33,16 @@ public class ProjectService(
         var project = await projectRepository
             .GetSingleByConditionAsync(p => p.Id == projectId);
 
-        if (project == null)
-            throw new EntityNotFoundException("Project not found");
-
-        return Result.Ok(mapper.Map<ProjectDto>(project));
+        return project == null
+            ? throw new EntityNotFoundException("Project not found")
+            : Result.Ok(mapper.Map<ProjectDto>(project));
     }
 
     public async Task<Result> AddProjectAsync(ProjectDto projectDto)
     {
         var project = mapper.Map<Project>(projectDto);
         await projectRepository.InsertAsync(project);
-        
+
         return Result.Ok();
     }
 
@@ -63,7 +62,7 @@ public class ProjectService(
 
         project.Managers.Add(manager);
         await projectRepository.UpdateAsync(project);
-        
+
         return Result.Ok();
     }
 
@@ -83,7 +82,7 @@ public class ProjectService(
 
         project.Employees.Add(employee);
         await projectRepository.UpdateAsync(project);
-        
+
         return Result.Ok();
     }
 
@@ -108,7 +107,7 @@ public class ProjectService(
             await AddProjectAsync(projectDto);
         else
             await projectRepository.UpdateAsync(mapper.Map(projectDto, project));
-        
+
         return Result.Ok();
     }
 

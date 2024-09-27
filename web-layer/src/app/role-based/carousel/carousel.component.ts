@@ -1,37 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { MatTableModule} from "@angular/material/table";
-
-export interface PeriodicElement {
-  firstName: string;
-  secondName: string;
-  birthday: Date;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {firstName: 'Employee1', secondName: 'Employee1', birthday: new Date(2004,9,16)},
-  {firstName: 'Employee1', secondName: 'Employee1', birthday: new Date(2004,9,16)},
-  {firstName: 'Employee1', secondName: 'Employee1', birthday: new Date(2004,9,16)},
-  {firstName: 'Employee1', secondName: 'Employee1', birthday: new Date(2004,9,16)},
-  {firstName: 'Employee1', secondName: 'Employee1', birthday: new Date(2004,9,16)},
-  {firstName: 'Employee1', secondName: 'Employee1', birthday: new Date(2004,9,16)},
-  {firstName: 'Employee1', secondName: 'Employee1', birthday: new Date(2004,9,16)},
-  {firstName: 'Employee1', secondName: 'Employee1', birthday: new Date(2004,9,16)},
-
-  {firstName: 'Employee1', secondName: 'Employee1', birthday: new Date(2004,9,16)},
-
-  {firstName: 'Employee1', secondName: 'Employee1', birthday: new Date(2004,9,16)},
-
-];
+import { Component, Input, OnInit } from '@angular/core';
+import { MatTableModule } from "@angular/material/table";
+import { HireDaysComponent } from "./hire-days/hire-days.component";
+import { EventsComponent } from "./events/events.component";
+import { ProjectsComponent } from "./projects/projects.component";
 
 @Component({
   selector: 'app-carousel',
   standalone: true,
-  imports: [MatTableModule, CommonModule],
+  imports: [MatTableModule, CommonModule, HireDaysComponent, EventsComponent, ProjectsComponent],
   templateUrl: './carousel.component.html',
   styleUrl: './carousel.component.scss'
 })
 export class CarouselComponent {
-  displayedColumns: string[] = ['firstName', 'secondName', 'birthday'];
-  dataSource = ELEMENT_DATA;
+
 }

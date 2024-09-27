@@ -38,7 +38,8 @@ export class RegistrationComponent {
           this.localService.put(LocalService.AuthTokenName, tokenModel.accessToken);
           window.location.href = '/waiting-room';
         }
-      })
+      },
+        errorResponse => this.errorMessage = errorResponse.error);
     }
     else {
       this.registrationForm.markAllAsTouched();

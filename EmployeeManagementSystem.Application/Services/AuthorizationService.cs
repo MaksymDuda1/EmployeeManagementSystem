@@ -49,7 +49,7 @@ public class AuthorizationService(
         var result = await userManager.CreateAsync(user, registrationDto.Password);
 
         if (!result.Succeeded)
-            throw new AuthenticationException(result.Errors.First().Description);
+            return new ValidationError(result.Errors.First().Description);
 
         await userManager.AddToRoleAsync(user, UserRole.Initial.ToString());
         await userManager.UpdateAsync(user);

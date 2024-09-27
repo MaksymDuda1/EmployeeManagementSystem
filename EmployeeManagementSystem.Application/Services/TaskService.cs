@@ -31,10 +31,9 @@ public class TaskService(
             t => t.Project,
             t => t.Employee);
 
-        if (task == null)
-            return new EntityNotFoundError("Entity not found");
-
-        return mapper.Map<TaskDto>(task);
+        return task == null
+            ? new EntityNotFoundError("Entity not found")
+            : Result.Ok(mapper.Map<TaskDto>(task));
     }
 
     public async Task<Result> AddTaskAsync(TaskDto taskDto)
@@ -56,7 +55,7 @@ public class TaskService(
 
         var task = mapper.Map<Domain.Entities.TaskItem>(taskDto);
         await taskRepository.InsertAsync(task);
-        
+
         return Result.Ok();
     }
 
@@ -87,7 +86,7 @@ public class TaskService(
             await AddTaskAsync(taskDto);
         else
             await taskRepository.UpdateAsync(mapper.Map(taskDto, task));
-        
+
         return Result.Ok();
     }
 

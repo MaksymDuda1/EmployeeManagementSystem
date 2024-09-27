@@ -1,0 +1,27 @@
+<ul class="list-group">
+
+    <mat-table [dataSource]="employees" class="mat-elevation-z8">
+        <!-- Name Column -->
+        <ng-container matColumnDef="firstName">
+            <mat-header-cell *matHeaderCellDef> First name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.user.firstName}} </mat-cell>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="secondName">
+            <mat-header-cell *matHeaderCellDef> Second name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.user.secondName}} </mat-cell>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="birthday">
+            <mat-header-cell *matHeaderCellDef> Birthday </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <span class="badge bg-primary rounded-pill">{{element.hireDate | date: 'MMMM 16'}}</span>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+</ul>

@@ -29,13 +29,22 @@ public class ManagerService(
     {
         var manager = await managerRepository.GetSingleByConditionAsync(
             m => m.Id == id,
-            e => e.User,
+            m => m.User,
             m => m.Projects);
 
-        if (manager == null)
-            return new EntityNotFoundError("Manager not found");
+        return manager == null ? new EntityNotFoundError("Manager not found") 
+            : Result.Ok(mapper.Map<ManagerDto>(manager));
+    }
 
-        return Result.Ok(mapper.Map<ManagerDto>(manager));
+    public async Task<Result<ManagerDto>> GetManagerByUserIdAsync(Guid userId)
+    {
+        var manager = await managerRepository.GetSingleByConditionAsync(
+            m => m.UserId == userId,
+            m => m.User,
+            m => m.Projects);
+        
+        return manager == null ? new EntityNotFoundError("Manager not found") 
+            : Result.Ok(mapper.Map<ManagerDto>(manager));
     }
 
     public async Task<Result> AddManagerAsync(ManagerDto managerDto)
@@ -44,6 +53,12 @@ public class ManagerService(
 
         if (user == null)
             return new EntityNotFoundError("User not found");
+        
+        var existingManager = await managerRepository
+            .GetSingleByConditionAsync(m => m.UserId == user.Id);
+        
+        if(existingManager != null)
+            return new ValidationError("Current user already is manager");
 
         var manager = mapper.Map<Manager>(managerDto);
         await managerRepository.InsertAsync(manager);

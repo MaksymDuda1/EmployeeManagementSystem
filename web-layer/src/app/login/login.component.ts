@@ -42,7 +42,6 @@ export class LoginComponent {
 
 
         if (decodedData.role == Role.Initial) {
-          console.log(decodedData.role)
           window.location.href = 'waiting-room';
           return;
         }
@@ -56,7 +55,8 @@ export class LoginComponent {
         // if(decodedData.role = Role.Employee)
         //   window.location.href = 'employee'
       }
-    })
+    },
+  errorResponse => this.errorMessage = errorResponse.error)
     else{
       this.loginForm.markAllAsTouched();
     }

@@ -6,7 +6,7 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="birthdays-tab" data-bs-toggle="tab" data-bs-target="#birthdays"
                         type="button" role="tab" aria-controls="birthdays" aria-selected="true">
-                        <i class="fas fa-birthday-cake"></i> Birthdays
+                        <i class="fas fa-birthday-cake"></i> Hire dates
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
@@ -26,59 +26,14 @@
         <div class="card-body">
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="birthdays" role="tabpanel" aria-labelledby="birthdays-tab">
-                    <ul class="list-group">
-
-                        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-                            <!-- Name Column -->
-                            <ng-container matColumnDef="firstName">
-                                <mat-header-cell *matHeaderCellDef> First name </mat-header-cell>
-                                <mat-cell *matCellDef="let element"> {{element.firstName}} </mat-cell>
-                            </ng-container>
-
-                            <!-- Weight Column -->
-                            <ng-container matColumnDef="secondName">
-                                <mat-header-cell *matHeaderCellDef> Second name </mat-header-cell>
-                                <mat-cell *matCellDef="let element"> {{element.secondName}} </mat-cell>
-                            </ng-container>
-
-                            <!-- Symbol Column -->
-                            <ng-container matColumnDef="birthday">
-                                <mat-header-cell *matHeaderCellDef> Birthday </mat-header-cell>
-                                <mat-cell *matCellDef="let element"> 
-                                    <span class="badge bg-primary rounded-pill">{{element.birthday | date: 'MMMM 16'}}</span>
-                                </mat-cell>
-                            </ng-container>
-
-                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                        </mat-table>
-                    </ul>
+                    <app-hire-days />
                 </div>
                 <div class="tab-pane fade" id="deadlines" role="tabpanel" aria-labelledby="deadlines-tab">
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Completion of Project "Alpha"
-                            <span class="badge bg-danger rounded-pill">October 30</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Presentation of Project "Beta"
-                            <span class="badge bg-warning rounded-pill">November 15</span>
-                        </li>
-                        <!-- Add other deadlines here -->
-                    </ul>
+                    <app-projects />
+
                 </div>
                 <div class="tab-pane fade" id="events" role="tabpanel" aria-labelledby="events-tab">
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Corporate Picnic
-                            <span class="badge bg-success rounded-pill">November 5</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            New Year's Corporate Party
-                            <span class="badge bg-info rounded-pill">December 20</span>
-                        </li>
-                        <!-- Add other corporate events here -->
-                    </ul>
+                    <app-events />
                 </div>
             </div>
         </div>

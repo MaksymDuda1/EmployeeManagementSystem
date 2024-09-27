@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 import { ProjectModel } from "../models/project.model";
 
 @Injectable({providedIn: "root"})
-export class MangerService{
+export class ProjectService{
     private path: string = "api/project/";
 
     constructor(private client: HttpClient){}
