@@ -20,7 +20,7 @@ public class AdminController(IAdminService adminService)
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateUsers([FromBody] ChangeUserRoleDto request)
+    public async Task<IActionResult> ChangeUserRole([FromBody] ChangeUserRoleDto request)
     {
         var result = await adminService.ChangeUserRole(request);
         

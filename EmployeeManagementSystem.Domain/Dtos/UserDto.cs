@@ -5,7 +5,9 @@ namespace EmployeeManagementSystem.Domain.Dtos;
 public class UserDto : BaseDto<Guid>
 {
     public string Email { get; set; } = null!;
-
+    
+    public DateOnly RegistrationDate { get; set; }
+    
     public string FirstName { get; set; } = null!;
 
     public string SecondName { get; set; } = null!;

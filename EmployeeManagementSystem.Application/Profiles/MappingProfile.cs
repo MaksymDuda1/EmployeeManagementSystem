@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using EmployeeManagementSystem.Domain.Dtos;
 using EmployeeManagementSystem.Domain.Entities;
+using EmployeeManagementSystem.Domain.Helpers;
 
-namespace EmployeeManagementSystem.Application.MappingProfile;
+namespace EmployeeManagementSystem.Application.Profiles;
 
 public class MappingProfile : Profile
 {

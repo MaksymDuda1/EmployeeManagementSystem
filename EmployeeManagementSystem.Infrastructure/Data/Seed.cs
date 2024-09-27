@@ -20,6 +20,7 @@ public static class Seed
             FirstName = "Admin",
             SecondName = "Admin",
             Email = "admin@gmail.com",
+            RegistrationDate = DateOnly.FromDateTime(DateTime.Now),
         };
       
         var result = await userManager.CreateAsync(user, "password1");

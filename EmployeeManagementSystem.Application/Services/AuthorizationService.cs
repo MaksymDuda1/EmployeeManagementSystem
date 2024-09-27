@@ -5,7 +5,6 @@ using EmployeeManagementSystem.Domain.Dtos;
 using EmployeeManagementSystem.Domain.Entities;
 using EmployeeManagementSystem.Domain.Enums;
 using EmployeeManagementSystem.Domain.Errors;
-using EmployeeManagementSystem.Domain.Exceptions;
 using FluentResults;
 using Microsoft.AspNetCore.Identity;
 
@@ -44,6 +43,7 @@ public class AuthorizationService(
             FirstName = registrationDto.FirstName,
             SecondName = registrationDto.SecondName,
             UserName = registrationDto.UserName,
+            RegistrationDate = DateOnly.FromDateTime(DateTime.UtcNow)
         };
 
         var result = await userManager.CreateAsync(user, registrationDto.Password);

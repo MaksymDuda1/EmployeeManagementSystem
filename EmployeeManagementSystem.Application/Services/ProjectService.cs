@@ -4,10 +4,8 @@ using EmployeeManagementSystem.Domain.Abstractions;
 using EmployeeManagementSystem.Domain.Dtos;
 using EmployeeManagementSystem.Domain.Entities;
 using EmployeeManagementSystem.Domain.Errors;
-using EmployeeManagementSystem.Domain.Exceptions;
 using FluentResults;
 using FluentValidation;
-using Task = System.Threading.Tasks.Task;
 
 namespace EmployeeManagementSystem.Application.Services;
 
@@ -34,7 +32,7 @@ public class ProjectService(
             .GetSingleByConditionAsync(p => p.Id == projectId);
 
         return project == null
-            ? throw new EntityNotFoundException("Project not found")
+            ? new EntityNotFoundError("Project not found")
             : Result.Ok(mapper.Map<ProjectDto>(project));
     }
 

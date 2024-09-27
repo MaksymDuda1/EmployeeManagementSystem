@@ -1,13 +1,7 @@
 using System.Reflection;
 using EmployeeManagementSystem.Application.Abstractions;
 using EmployeeManagementSystem.Application.Services;
-using EmployeeManagementSystem.Application.Validations.EmployeeValidators;
-using EmployeeManagementSystem.Application.Validations.ManagerValidators;
-using EmployeeManagementSystem.Application.Validations.ProjectValidators;
-using EmployeeManagementSystem.Application.Validations.TaskValidators;
-using EmployeeManagementSystem.Domain.Dtos;
 using FluentValidation;
-using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EmployeeManagementSystem.Application;
@@ -16,7 +10,7 @@ public static class ApplicationServicesRegistration
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        services.AddAutoMapper(typeof(MappingProfile.MappingProfile));
+        services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IAuthorizationService, AuthorizationService>();
         services.AddScoped<IEmployeeService, EmployeeService>();
@@ -24,6 +18,7 @@ public static class ApplicationServicesRegistration
         services.AddScoped<IProjectService, ProjectService>();
         services.AddScoped<IManagerService, ManagerService>();
         services.AddScoped<IAdminService, AdminService>();
+        services.AddScoped<IUserService, UserService>();
         
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         return services;

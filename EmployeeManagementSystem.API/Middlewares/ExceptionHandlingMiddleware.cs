@@ -1,6 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using System.Security.Authentication;
-using EmployeeManagementSystem.Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagementSystem.API.Middlewares;

@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -7,7 +6,6 @@ using EmployeeManagementSystem.Application.Abstractions;
 using EmployeeManagementSystem.Application.Models;
 using EmployeeManagementSystem.Domain.Entities;
 using EmployeeManagementSystem.Domain.Errors;
-using EmployeeManagementSystem.Domain.Exceptions;
 using FluentResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;

@@ -8,13 +8,14 @@ import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { LocalService } from '../services/local.service';
 import { jwtFactory } from './jwt-options';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { errorInterceptor } from '../inceptors/errorHandling.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withInterceptors([errorInterceptor])),
     importProvidersFrom([
       FormsModule,
       RouterModule,

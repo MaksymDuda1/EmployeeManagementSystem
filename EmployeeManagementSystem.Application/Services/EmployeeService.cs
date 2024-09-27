@@ -4,11 +4,8 @@ using EmployeeManagementSystem.Domain.Abstractions;
 using EmployeeManagementSystem.Domain.Dtos;
 using EmployeeManagementSystem.Domain.Entities;
 using EmployeeManagementSystem.Domain.Errors;
-using EmployeeManagementSystem.Domain.Exceptions;
 using FluentResults;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
-using Task = System.Threading.Tasks.Task;
 
 namespace EmployeeManagementSystem.Application.Services;
 

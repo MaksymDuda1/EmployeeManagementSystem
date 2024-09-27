@@ -1,27 +1,37 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
 
+
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
     return next(req).pipe(
         catchError((error: HttpErrorResponse) => {
-            let errorMessage = 'Unknown error!';
+            let errorMessage: string;
 
             if (error.error instanceof ErrorEvent) {
-                errorMessage = `${error.error.message}`;
+                // Client-side error
+                errorMessage = error.error.message;
             } else {
+                // Server-side error
                 if (typeof error.error === 'string') {
                     try {
                         const errorBody = JSON.parse(error.error);
-                        errorMessage = errorBody.title || 'Unknown server error';
+                        errorMessage = errorBody.title || errorBody.message || 'Unknown server error';
                     } catch (e) {
-                        errorMessage = 'Could not parse error response';
+                        errorMessage = error.error; // Use the string directly if it's not JSON
                     }
                 } else if (error.error && typeof error.error === 'object') {
-                    errorMessage = error.error.title || 'Unknown server error';
+                    errorMessage = error.error.title || error.error.message || JSON.stringify(error.error);
+                } else {
+                    errorMessage = error.message || 'Unknown server error';
                 }
             }
 
-            return throwError(() => new Error(errorMessage));
+            // Create a new error response with the error message directly in the 'error' property
+            const errorResponse = new HttpErrorResponse({
+                error: errorMessage.toString(),
+            });
+
+            return throwError(() => errorResponse);
         })
     );
-};
+}
