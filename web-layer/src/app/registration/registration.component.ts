@@ -51,14 +51,4 @@ export class RegistrationComponent {
       this.registrationForm.markAllAsTouched();
     }
   }
-
-  // onRegistration() {
-  //   this.authService.registration(this.registrationModel).subscribe((tokenModel: ApiTokenModel) => {
-  //     if (tokenModel.accessToken != null) {
-  //       this.localService.put(LocalService.AuthTokenName, tokenModel.accessToken);
-  //       window.location.href = '/waiting-room';
-  //     }
-  //   },
-  //     (errorResponse: any) => this.errorMessage = errorResponse)
-  // }
 }

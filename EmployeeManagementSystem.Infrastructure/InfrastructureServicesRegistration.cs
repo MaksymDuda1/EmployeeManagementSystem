@@ -56,7 +56,7 @@ public static class InfrastructureServicesRegistration
         {
             opt.UseSqlServer(configuration.GetConnectionString(nameof(EmployeeManagementSystemContext)));
         });
-        
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         services.AddScoped<IManagerRepository, ManagerRepository>();
         services.AddScoped<IProjectRepository, ProjectRepository>();

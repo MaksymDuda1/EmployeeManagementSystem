@@ -1,8 +1,12 @@
-﻿namespace EmployeeManagementSystem.Domain.Helpers;
+﻿using EmployeeManagementSystem.Domain.Dtos;
+using EmployeeManagementSystem.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+
+namespace EmployeeManagementSystem.Domain.Helpers;
 
 public class PagedList<T>
 {
-    private PagedList(List<T> items,int page, int pageSize, int totalCount)
+    public PagedList(List<T> items,int page, int pageSize, int totalCount)
     {
         Items = items;
         Page = page;
@@ -22,11 +26,8 @@ public class PagedList<T>
     
     public bool HasPreviousPage => Page > 1;
 
-    public static PagedList<T> Create(IQueryable<T> query, int page, int pageSize)
+    public static PagedList<T> Create(List<T> users, int page, int pageSize, int totalCount)
     {
-        var totalCount = query.Count();
-        var items =  query.Skip((page - 1) * pageSize).Take(pageSize).ToList();
-        
-        return new PagedList<T>(items, page, pageSize, totalCount);
+        return new PagedList<T>(users, page, pageSize, totalCount);
     }
 }

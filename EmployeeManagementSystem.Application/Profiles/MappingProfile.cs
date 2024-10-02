@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EmployeeManagementSystem.Domain.Dtos;
 using EmployeeManagementSystem.Domain.Entities;
+using EmployeeManagementSystem.Domain.Helpers;
 
 namespace EmployeeManagementSystem.Application.Profiles;
 
@@ -22,5 +23,7 @@ public class MappingProfile : Profile
         CreateMap<RoleDto, Role>().ReverseMap();
         CreateMap<DateTimeOffset, DateOnly>()
             .ConvertUsing(dto => DateOnly.FromDateTime(dto.UtcDateTime));
+        CreateMap<PagedList<User>, PagedList<UserDto>>()
+            .ConvertUsing<PagedListProfile>();
     }
 }

@@ -24,7 +24,7 @@
       <div class="input-group">
           <input [type]="showPassword ? 'text' : 'password'" formControlName="password" class="form-control" id="inputPassword" placeholder="Password">
           <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordVisibility()">
-              <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+              <img [src]="showPassword ? 'assets/view.png' : 'assets/eye.png'" width="24px" alt="">
           </button>
       </div>
       

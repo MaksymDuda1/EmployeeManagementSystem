@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EmployeeManagementSystem.Application.Abstractions;
+using EmployeeManagementSystem.Domain.Abstractions;
 using EmployeeManagementSystem.Domain.Dtos;
 using EmployeeManagementSystem.Domain.Entities;
 using EmployeeManagementSystem.Domain.Enums;
@@ -7,42 +8,31 @@ using EmployeeManagementSystem.Domain.Errors;
 using EmployeeManagementSystem.Domain.Helpers;
 using FluentResults;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+
 namespace EmployeeManagementSystem.Application.Services;
 
 public class UserService(
     UserManager<User> userManager,
+    RoleManager<Role> roleManager,
+    IUserRepository userRepository,
     IMapper mapper) : IUserService
 {
     public async Task<PagedList<UserDto>> GetAllUsers(GetUsersDto usersDto)
     {
-        var usersQuery = !string.IsNullOrEmpty(usersDto.Role)
-            ? (await userManager.GetUsersInRoleAsync(usersDto.Role)).AsQueryable()
-            : (await userManager.Users.ToListAsync()).AsQueryable();
+        Guid? roleId = null;
+        if(usersDto.Role != null)
+            roleId = (await roleManager.FindByNameAsync(usersDto.Role))?.Id;
         
-        if (!string.IsNullOrEmpty(usersDto.SecondName))
-            usersQuery = usersQuery.Where(u =>
-                u.SecondName.Contains(usersDto.SecondName));
+        var pagedUsers = await userRepository.GetAllUsersAsync(
+            usersDto.SecondName,
+            roleId,
+            usersDto.IsLocked,
+            usersDto.MinRegistrationDate,
+            usersDto.MaxRegistrationDate,
+            usersDto.Page,
+            usersDto.PageSize);
         
-        if (usersDto.MinRegistrationDate.HasValue)
-            usersQuery = usersQuery.Where(u =>
-                u.RegistrationDate >= usersDto.MinRegistrationDate.Value);
-        
-        if (usersDto.MaxRegistrationDate.HasValue)
-            usersQuery = usersQuery.Where(u =>
-                u.RegistrationDate <= usersDto.MaxRegistrationDate.Value);
-
-        if (usersDto.IsLocked != null && usersDto.IsLocked.Value)
-            usersQuery = usersQuery.Where(u => u.LockoutEnd != null);
-        if (usersDto.IsLocked != null && !usersDto.IsLocked.Value)
-            usersQuery = usersQuery.Where(u => u.LockoutEnd == null);
-        
-        var usersQueryResponse = usersQuery.Select(e => mapper.Map<UserDto>(e));
-
-        var users = PagedList<UserDto>.Create(
-            usersQueryResponse, usersDto.Page, usersDto.PageSize);
-
-        return users;
+        return mapper.Map<PagedList<UserDto>>(pagedUsers) ;
     }
 
     public async Task<Result<List<UserDto>>> GetUsersWithoutRoleAsync()
@@ -55,14 +45,14 @@ public class UserService(
     public async Task<Result<UserDto>> GetUserByIdAsync(Guid id)
     {
         var user = await userManager.FindByIdAsync(id.ToString());
-        
-        if(user == null)
+
+        if (user == null)
             return new EntityNotFoundError("User Not Found");
 
         var userDto = mapper.Map<UserDto>(user);
         var roles = await userManager.GetRolesAsync(user);
         userDto.Role = roles[0];
-        
+
         return Result.Ok(userDto);
     }
 
@@ -95,9 +85,9 @@ public class UserService(
     public async Task<Result> DeleteUserAsync(Guid id)
     {
         var user = await userManager.FindByIdAsync(id.ToString());
-        
-        if(user == null) return new EntityNotFoundError("User not found");
-        
+
+        if (user == null) return new EntityNotFoundError("User not found");
+
         await userManager.DeleteAsync(user);
         return Result.Ok();
     }
