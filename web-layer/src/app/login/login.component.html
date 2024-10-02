@@ -6,36 +6,34 @@
       <label for="inputUsername">Username</label>
       <input type="text" formControlName="username" class="form-control" id="inputUsername"
         placeholder="Enter username">
-      @if(loginForm.controls.username.invalid && (loginForm.controls.username.touched)){
-      @if(loginForm.controls.username.errors?.["required"]){
-      <small>*Username is required field</small>
-      }}
+        <div *ngIf="loginForm.controls.username.invalid && loginForm.controls.username.touched">
+          <small *ngIf="loginForm.controls.username.errors?.['required']">*Username is a required field</small>
+        </div>
     </div>
 
     <div class="form-group-item">
       <label for="inputEmail">Email address</label>
       <input type="email" formControlName="email" class="form-control" id="inputEmail" placeholder="Enter email">
-      @if(loginForm.controls.email.invalid && (loginForm.controls.email.touched)){
-
-      @if(loginForm.controls.email.errors?.["email"]){
-      <small>*Email is not valid</small>
-      }
-      @if(loginForm.controls.email.errors?.["required"]){
-      <small>*Email is required field</small>
-      }}
+      <div *ngIf="loginForm.controls.email.invalid && loginForm.controls.email.touched">
+        <small *ngIf="loginForm.controls.email.errors?.['email']">*Email is not valid</small>
+        <small *ngIf="loginForm.controls.email.errors?.['required']">*Email is a required field</small>
+      </div>
     </div>
-
     <div class="form-group-item">
       <label for="inputPassword">Password</label>
-      <input type="password" formControlName="password" class="form-control" id="inputPassword" placeholder="Password">
-      @if(loginForm.controls.password.invalid && (loginForm.controls.password.touched)){
-      @if(loginForm.controls.password.errors?.["required"]){
-      <small>*Password is required field</small>
-      }
-      @if(loginForm.controls.password.errors?.["minlength"]){
-      <small>*Min length is 8 symbols</small>
-      }}
-    </div>
+      <div class="input-group">
+          <input [type]="showPassword ? 'text' : 'password'" formControlName="password" class="form-control" id="inputPassword" placeholder="Password">
+          <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordVisibility()">
+              <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+          </button>
+      </div>
+      
+      <div *ngIf="loginForm.controls.password.invalid && loginForm.controls.password.touched">
+          <small *ngIf="loginForm.controls.password.errors?.['required']">*Password is required field</small>
+          <small *ngIf="loginForm.controls.password.errors?.['minlength']">*Min length is 8 symbols</small>
+      </div>
+  </div>
+  
     <button type="submit" class="btn btn-dark">Login</button>
     <a routerLink="/sign-up"><small id="emailHelp" class="form-text text-muted">Don't have acount? Click
         here.</small></a>

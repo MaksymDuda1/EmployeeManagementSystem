@@ -22,6 +22,7 @@ export class LoginComponent {
 
   loginModel = new LoginModel();
   errorMessage = "";
+  showPassword = false;
 
   constructor(private authService: AuthService,
     private localService: LocalService,
@@ -34,6 +35,10 @@ export class LoginComponent {
     email: this.fb.control('', { validators: [Validators.required, Validators.email] }),
     password: this.fb.control('', { validators: [Validators.required, Validators.minLength(8)] }),
   });
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
   onLogin() {
     if(this.loginForm.valid)

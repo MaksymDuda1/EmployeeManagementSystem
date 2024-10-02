@@ -21,6 +21,8 @@ export class RegistrationComponent {
 
   registrationModel: RegistrationModel = new RegistrationModel();
   errorMessage: string = "";
+  showPassword = false;
+
 
   fb = inject(NonNullableFormBuilder);
   registrationForm = this.fb.group({
@@ -30,6 +32,10 @@ export class RegistrationComponent {
     email: this.fb.control('', { validators: [Validators.required, Validators.email] }),
     password: this.fb.control('', { validators: [Validators.required, Validators.minLength(8)] }),
   });
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
   onRegistration() {
     if (this.registrationForm.valid) {

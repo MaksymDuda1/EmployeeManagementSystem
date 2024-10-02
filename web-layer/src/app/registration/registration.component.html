@@ -7,20 +7,18 @@
                 <label for="inputFirstName">First Name</label>
                 <input type="text" formControlName="firstName" class="form-control" id="inputFirstName"
                     placeholder="Enter first name">
-                @if (registrationForm.controls.firstName.invalid &&(registrationForm.controls.firstName.touched )) {
-                @if (registrationForm.controls.firstName.errors?.["required"]) {
-                <small>*First name ia a required field</small>
-                }}
+                <small *ngIf="registrationForm.controls.firstName.invalid && registrationForm.controls.firstName.touched">
+                    <span *ngIf="registrationForm.controls.firstName.errors?.['required']">*First name is a required field</span>
+                </small>
             </div>
 
             <div class="form-group-item">
                 <label for="inputLastName">Second Name</label>
                 <input type="text" formControlName="secondName" class="form-control" id="inputLastName"
                     placeholder="Enter second name">
-                @if(registrationForm.controls.secondName.invalid && (registrationForm.controls.secondName.touched)){
-                @if(registrationForm.controls.secondName.errors?.["required"]){
-                <small>*Second name is required field</small>
-                }}
+                <small *ngIf="registrationForm.controls.secondName.invalid && registrationForm.controls.secondName.touched">
+                    <span *ngIf="registrationForm.controls.secondName.errors?.['required']">*Second name is a required field</span>
+                </small>
             </div>
         </div>
 
@@ -28,40 +26,36 @@
             <label for="inputUsername">Username</label>
             <input type="text" formControlName="username" class="form-control" id="inputUsername"
                 placeholder="Enter username">
-            @if(registrationForm.controls.username.invalid && (registrationForm.controls.username.touched)){
-            @if(registrationForm.controls.username.errors?.["required"]){
-            <small>*Username is required field</small>
-            }}
+            <small *ngIf="registrationForm.controls.username.invalid && registrationForm.controls.username.touched">
+                <span *ngIf="registrationForm.controls.username.errors?.['required']">*Username is a required field</span>
+            </small>
         </div>
 
         <div class="form-group-item">
             <label for="inputEmail">Email address</label>
             <input type="email" formControlName="email" class="form-control" id="inputEmail" placeholder="Enter email">
-            @if(registrationForm.controls.email.invalid && (registrationForm.controls.email.touched)){
-            @if(registrationForm.controls.email.errors?.["required"]){
-            <small>*Email is required field</small>
-            }
-            @if(registrationForm.controls.email.errors?.["email"]){
-            <small>*Email is not valid</small>
-            }}
+            <small *ngIf="registrationForm.controls.email.invalid && registrationForm.controls.email.touched">
+                <span *ngIf="registrationForm.controls.email.errors?.['required']">*Email is a required field</span>
+                <span *ngIf="registrationForm.controls.email.errors?.['email']">*Email is not valid</span>
+            </small>
         </div>
 
         <div class="form-group-item">
             <label for="inputPassword">Password</label>
-            <input type="password" formControlName="password" class="form-control" id="inputPassword"
-                placeholder="Password">
-            @if(registrationForm.controls.password.invalid && (registrationForm.controls.password.touched)){
-            @if(registrationForm.controls.password.errors?.["required"]){
-            <small>*Password is required field</small>
-            }
-            @if(registrationForm.controls.password.errors?.["minlength"]){
-            <small>*Min length is 8 symbols</small>
-            }}
+            <div class="input-group">
+                <input [type]="showPassword ? 'text' : 'password'" formControlName="password" class="form-control" id="inputPassword" placeholder="Password">
+                <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordVisibility()">
+                    <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+                </button>
+            </div>
+            <small *ngIf="registrationForm.controls.password.invalid && registrationForm.controls.password.touched">
+                <span *ngIf="registrationForm.controls.password.errors?.['required']">*Password is a required field</span>
+                <span *ngIf="registrationForm.controls.password.errors?.['minlength']">*Min length is 8 symbols</span>
+            </small>
         </div>
 
         <button type="submit" class="btn btn-dark">Register</button>
-        <a routerLink="/sign-in"><small class="form-text text-muted">Already have account? Click
-                here.</small></a>
+        <a routerLink="/sign-in"><small class="form-text text-muted">Already have account? Click here.</small></a>
     </form>
     {{errorMessage}}
 </div>
