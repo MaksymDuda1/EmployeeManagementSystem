@@ -22,12 +22,28 @@ public static class Seed
             Email = "admin@gmail.com",
             RegistrationDate = DateOnly.FromDateTime(DateTime.Now),
         };
+        
+        var user2 = new User()
+        {
+            UserName = "Admin2",
+            FirstName = "Admin",
+            SecondName = "Admin",
+            Email = "admin2@gmail.com",
+            RegistrationDate = DateOnly.FromDateTime(DateTime.Now),
+        };
+
       
         var result = await userManager.CreateAsync(user, "password1");
+        var result2 = await userManager.CreateAsync(user2, "password1");
 
         if (result.Succeeded)
         {
             await userManager.AddToRoleAsync(user, "Admin");
+        }
+
+        if (result2.Succeeded)
+        {
+            await userManager.AddToRoleAsync(user2, "Admin");
         }
     }
 }

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MetricsComponent } from './metrics.component';
+import { UpdateRoleModalComponent } from './update-role-modal.component';
 
-describe('MetricsComponent', () => {
-  let component: MetricsComponent;
-  let fixture: ComponentFixture<MetricsComponent>;
+describe('UpdateRoleModalComponent', () => {
+  let component: UpdateRoleModalComponent;
+  let fixture: ComponentFixture<UpdateRoleModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MetricsComponent]
+      imports: [UpdateRoleModalComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MetricsComponent);
+    fixture = TestBed.createComponent(UpdateRoleModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

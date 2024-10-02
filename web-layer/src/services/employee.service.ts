@@ -15,7 +15,7 @@ export class EmployeeService{
 
     getById(id: string): Observable<EmployeeModel>{
         return this.client.get<EmployeeModel>(this.path + id)
-    }
+    } 
 
     add(employeeModel: EmployeeModel): Observable<any>{
         return this.client.post<EmployeeModel>(this.path, employeeModel);

@@ -6,5 +6,9 @@ public class ChangeUserRoleDto
 {
     public Guid UserId { get; set; }
 
-    public UserRole Role { get; set; }
+    public EmployeeDto? Employee { get; set; }
+
+    public ManagerDto? Manager { get; set; }
+
+    public string Role { get; set; } = null!;
 }

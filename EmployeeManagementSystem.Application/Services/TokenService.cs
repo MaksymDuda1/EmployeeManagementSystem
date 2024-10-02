@@ -33,7 +33,7 @@ public class TokenService : ITokenService
         try
         {
             var principal = GetPrincipalFromExpiredToken(token.AccessToken);
-            string username = principal.Identity.Name;
+            var username = principal.Identity.Name;
             var user = await userManager.FindByNameAsync(username);
 
             if (user is null)
@@ -41,7 +41,6 @@ public class TokenService : ITokenService
 
             if (user.RefreshToken != token.RefreshToken)
                 return new ValidationError("Refresh token is not recognised.");
-
 
             if (user.RefreshTokenExpiration <= DateTime.UtcNow)
                 return new ValidationError("Refresh token is not valid due to expiration");

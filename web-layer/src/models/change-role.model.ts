@@ -1,6 +1,9 @@
-import { Role } from "../enums/role.enum";
+import { UpdateRoleEmloyeeModel } from "./update-role.employee.model";
+import { UpdateRoleManagerModel } from "./update-role.manager.model";
 
 export class ChangeRoleModel{
     userId: string = "";
-    userRole: Role = Role.Initial;
-}
+    manager: UpdateRoleManagerModel | null = null;
+    employee: UpdateRoleEmloyeeModel | null = null;
+    role: string = "";
+} 

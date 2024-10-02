@@ -21,18 +21,16 @@ public class AuthorizationService(
         
         if (userByUsername == null) 
             return new EntityNotFoundError("No user with given username was found");
-
-        var userByEmail = await userManager.FindByEmailAsync(loginDto.Email);
-
-        if (userByEmail == null)
-            return new EntityNotFoundError("No user with given email was found");
-
+        
+        if (userByUsername.Email != loginDto.Email)
+            return new EntityNotFoundError("Wrong email");
+        
         var result = await signInManager
-            .PasswordSignInAsync(userByEmail.UserName, loginDto.Password, false, false);
+            .PasswordSignInAsync(userByUsername.UserName!, loginDto.Password, false, false);
 
         return !result.Succeeded
-            ? new ValidationError("Wrong password")
-            : Result.Ok(await tokenService.GenerateToken(userByEmail, true));
+            ? new ValidationError(result.ToString())
+            : Result.Ok(await tokenService.GenerateToken(userByUsername, true));
     }
 
     public async Task<Result<TokenApiModel>> Registration(RegistrationDto registrationDto)
@@ -49,7 +47,7 @@ public class AuthorizationService(
         var result = await userManager.CreateAsync(user, registrationDto.Password);
 
         if (!result.Succeeded)
-            return new ValidationError(result.Errors.First().Description);
+            throw new AuthenticationException(result.Errors.First().Description);
 
         await userManager.AddToRoleAsync(user, UserRole.Initial.ToString());
         await userManager.UpdateAsync(user);

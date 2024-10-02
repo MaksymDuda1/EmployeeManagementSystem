@@ -4,6 +4,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .brick {
     width: 12vw;
+    height: 26vh;
     border: 2px solid #000;
     border-radius: 8% ;
     transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out, background-color 0.5s ease-in-out;

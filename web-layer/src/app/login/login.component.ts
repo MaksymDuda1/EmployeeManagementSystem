@@ -8,6 +8,7 @@ import { Role } from '../../enums/role.enum';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AppSignalrService } from '../../services/app-signalR.service';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class LoginComponent {
 
   constructor(private authService: AuthService,
     private localService: LocalService,
-    private jwtHelperService: JwtHelperService) { }
+    private jwtHelperService: JwtHelperService,
+  ) { }
 
   fb = inject(NonNullableFormBuilder);
   loginForm = this.fb.group({
@@ -47,9 +49,6 @@ export class LoginComponent {
         }
 
         window.location.href = 'role-based';
-
-        // if(decodedData.role = Role.Admin)
-        //   window.location.href = 'admin';
         // if(decodedData = Role.Manager)
         //   window.location.href = 'manager'
         // if(decodedData.role = Role.Employee)

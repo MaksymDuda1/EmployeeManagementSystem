@@ -14,8 +14,8 @@
         </ng-container>
 
         <!-- Symbol Column -->
-        <ng-container matColumnDef="birthday">
-            <mat-header-cell *matHeaderCellDef> Birthday </mat-header-cell>
+        <ng-container matColumnDef="hireDate">
+            <mat-header-cell *matHeaderCellDef> Hire date </mat-header-cell>
             <mat-cell *matCellDef="let element">
                 <span class="badge bg-primary rounded-pill">{{element.hireDate | date: 'MMMM 16'}}</span>
             </mat-cell>

@@ -1,12 +1,11 @@
-﻿using EmployeeManagementSystem.Domain.Abstractions;
-using EmployeeManagementSystem.Domain.Dtos;
+﻿using EmployeeManagementSystem.Domain.Dtos;
 using FluentValidation;
 
 namespace EmployeeManagementSystem.Application.Validations.TaskValidators;
 
 public class TaskValidator : AbstractValidator<TaskDto>
 {
-    public TaskValidator(IProjectRepository projectRepository)
+    public TaskValidator()
     {
         RuleFor(t => t.Name).NotNull().NotEmpty()
             .WithMessage("Name cannot be empty");

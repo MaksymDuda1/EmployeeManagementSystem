@@ -9,7 +9,7 @@ public class ManagerDto : BaseDto<Guid>
 
     public Guid UserId { get; set; }
 
-    public virtual UserDto? User { get; set; } = null!;
+    public virtual UserDto? User { get; set; }
 
     public virtual ICollection<ProjectDto> Projects { get; set; } = new List<ProjectDto>();
 }

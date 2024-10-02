@@ -7,13 +7,13 @@ import { AdminSectionComponent } from './admin-section/admin-section.component';
 import { RouterModule } from '@angular/router';
 import { ManagerSectionComponent } from "./manager-section/manager-section.component";
 import { EmployeeSectionComponent } from "./employee-section/employee-section.component";
-import { MetricsComponent } from "./metrics/metrics.component";
+import { StatisticsComponent } from "../statistics/statistics.component";
 
 @Component({
   selector: 'app-role-based',
   standalone: true,
   imports: [CommonModule, CarouselComponent, AdminSectionComponent, RouterModule,
-    ManagerSectionComponent, EmployeeSectionComponent, MetricsComponent],
+    ManagerSectionComponent, EmployeeSectionComponent, StatisticsComponent],
   templateUrl: './role-based.component.html',
   styleUrl: './role-based.component.scss'
 })

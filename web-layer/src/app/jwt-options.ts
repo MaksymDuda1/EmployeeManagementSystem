@@ -6,4 +6,4 @@ export function jwtFactory(localService: LocalService){
             return localService.get(LocalService.AuthTokenName);
         }
     }
-}
+} 

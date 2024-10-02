@@ -12,4 +12,4 @@ export class TaskModel {
     employeeId: string = "";
     employee: EmployeeModel = new EmployeeModel();
     project: ProjectModel = new ProjectModel();
-}
+}  

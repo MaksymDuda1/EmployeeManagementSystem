@@ -1,0 +1,13 @@
+{
+  "routes": [
+    "/",
+    "/dashboard",
+    "/home",
+    "/landing",
+    "/role-based",
+    "/sign-in",
+    "/sign-up",
+    "/users",
+    "/waiting-room"
+  ]
+}

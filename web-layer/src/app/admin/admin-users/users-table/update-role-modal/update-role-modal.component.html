@@ -1,0 +1,35 @@
+<div class="modal-content">
+  <button type="button" class="close" (click)="closeModal()">&times;</button>
+  <h2>Update Role for {{roleForm.get('username')?.value}} </h2>
+  <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input id="name" type="text" formControlName="username" class="form-control" readonly>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" class="form-control" readonly>
+    </div>
+
+    <div class="form-group">
+      <label for="role">Role</label>
+      <select id="role" formControlName="role" class="form-control" (change)="onRoleChange()">
+        <option value="" disabled>Select a role</option>
+        <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+      </select>
+    </div>
+
+    <div *ngIf="roleForm.get('role')?.value === 'Employee'" class="form-group">
+      <label for="position">Position</label>
+      <input id="position" type="text" formControlName="position" class="form-control">
+    </div>
+
+    <div *ngIf="roleForm.get('role')?.value === 'Manager'" class="form-group">
+      <label for="department">Department</label>
+      <input id="department" type="text" formControlName="department" class="form-control">
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="roleForm.invalid">Update Role</button>
+  </form>
+</div>

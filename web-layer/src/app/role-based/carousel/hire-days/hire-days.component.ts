@@ -12,7 +12,7 @@ import { EmployeeService } from '../../../../services/employee.service';
   styleUrl: './hire-days.component.scss'
 })
 export class HireDaysComponent {
-  displayedColumns: string[] = ['firstName', 'secondName', 'birthday'];
+  displayedColumns: string[] = ['firstName', 'secondName', 'hireDate'];
 
   employees: EmployeeModel[] = [];
   errorMessage: string = '';
@@ -21,42 +21,44 @@ export class HireDaysComponent {
 
   ngOnInit(): void {
     this.employeeService.getAll().subscribe(
-      data =>
-        this.employees = this.sortEmployeesByHireDate(data),
+      data => this.employees = this.sortEmployeesByUpcomingHireDate(data),
       errorResponse => this.errorMessage = errorResponse
     );
   }
 
-  private sortEmployeesByHireDate(employees: EmployeeModel[]): EmployeeModel[] {
+  private sortEmployeesByUpcomingHireDate(employees: EmployeeModel[]): EmployeeModel[] {
     const today = new Date();
-    const currentMonth = today.getMonth();
-    const currentDay = today.getDate();
+    const currentYear = today.getFullYear();
 
     return employees.sort((a, b) => {
-      const dateA = new Date(a.hireDate);
-      const dateB = new Date(b.hireDate);
+      const hireDateA = new Date(a.hireDate);
+      const hireDateB = new Date(b.hireDate);
 
-      const monthA = dateA.getMonth();
-      const dayA = dateA.getDate();
-      const monthB = dateB.getMonth();
-      const dayB = dateB.getDate();
+      const nextAnniversaryA = new Date(currentYear, hireDateA.getMonth(), hireDateA.getDate());
+      const nextAnniversaryB = new Date(currentYear, hireDateB.getMonth(), hireDateB.getDate());
 
-      const diffA = this.getDayDifference(currentMonth, currentDay, monthA, dayA);
-      const diffB = this.getDayDifference(currentMonth, currentDay, monthB, dayB);
+      if (nextAnniversaryA < today) nextAnniversaryA.setFullYear(currentYear + 1);
+      if (nextAnniversaryB < today) nextAnniversaryB.setFullYear(currentYear + 1);
 
-      return diffA - diffB;
-    });
+      return nextAnniversaryA.getTime() - nextAnniversaryB.getTime();
+    }).map(employee => ({
+      ...employee,
+      daysUntilAnniversary: this.getDaysUntilAnniversary(employee.hireDate)
+    }));
   }
 
-  private getDayDifference(currentMonth: number, currentDay: number, month: number, day: number): number {
-    const currentDate = new Date(2000, currentMonth, currentDay);
-    let comparisonDate = new Date(2000, month, day);
-
-    if (comparisonDate < currentDate) {
-      comparisonDate = new Date(2001, month, day);
+  private getDaysUntilAnniversary(hireDate: Date): number {
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const hireDay = new Date(hireDate);
+    
+    const nextAnniversary = new Date(currentYear, hireDay.getMonth(), hireDay.getDate());
+    
+    if (nextAnniversary < today) {
+      nextAnniversary.setFullYear(currentYear + 1);
     }
-
-    const timeDiff = comparisonDate.getTime() - currentDate.getTime();
+    
+    const timeDiff = nextAnniversary.getTime() - today.getTime();
     return Math.ceil(timeDiff / (1000 * 3600 * 24));
   }
 

@@ -30,7 +30,8 @@ public class ManagerService(
             m => m.User,
             m => m.Projects);
 
-        return manager == null ? new EntityNotFoundError("Manager not found") 
+        return manager == null
+            ? new EntityNotFoundError("Manager not found")
             : Result.Ok(mapper.Map<ManagerDto>(manager));
     }
 
@@ -40,8 +41,9 @@ public class ManagerService(
             m => m.UserId == userId,
             m => m.User,
             m => m.Projects);
-        
-        return manager == null ? new EntityNotFoundError("Manager not found") 
+
+        return manager == null
+            ? new EntityNotFoundError("Manager not found")
             : Result.Ok(mapper.Map<ManagerDto>(manager));
     }
 
@@ -51,11 +53,11 @@ public class ManagerService(
 
         if (user == null)
             return new EntityNotFoundError("User not found");
-        
+
         var existingManager = await managerRepository
             .GetSingleByConditionAsync(m => m.UserId == user.Id);
-        
-        if(existingManager != null)
+
+        if (existingManager != null)
             return new ValidationError("Current user already is manager");
 
         var manager = mapper.Map<Manager>(managerDto);
@@ -72,20 +74,21 @@ public class ManagerService(
         if (manager == null)
             return new EntityNotFoundError("Manager not found");
 
-        await managerRepository.UpdateAsync(mapper.Map(managerDto, manager));
+        
+        await managerRepository.UpdateAsync(mapper.Map<Manager>(managerDto));
         return Result.Ok();
     }
 
     public async Task<Result> UpsertManagerAsync(ManagerDto managerDto)
     {
         var manager = await managerRepository
-            .GetSingleByConditionAsync(m => m.Id == managerDto.Id);
+            .GetSingleByConditionAsync(m => m.UserId == managerDto.UserId);
 
         if (manager == null)
             await AddManagerAsync(managerDto);
         else
-            await managerRepository.UpdateAsync(mapper.Map(managerDto, manager));
-        
+            await managerRepository.UpdateAsync(manager);
+
         return Result.Ok();
     }
 

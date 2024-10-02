@@ -5,6 +5,7 @@ namespace EmployeeManagementSystem.Application.Abstractions;
 
 public interface IAdminService
 {
-    Task<Result<List<UserDto>>> GetUsersWithoutRoleAsync();
+    Task<Result<StatisticDto>> GetStatistic();
+
     Task<Result> ChangeUserRole(ChangeUserRoleDto changeUserRoleDto);
 }

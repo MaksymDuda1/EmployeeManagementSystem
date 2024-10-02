@@ -6,6 +6,7 @@ import { WaitingRoomComponent } from './waiting-room/waiting-room.component';
 import { TopMenuComponent } from './top-menu/top-menu.component';
 import { RoleBasedComponent } from './role-based/role-based.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 
 export const routes: Routes = [
     {
@@ -14,6 +15,8 @@ export const routes: Routes = [
         children: [
             { path: "waiting-room", component: WaitingRoomComponent },
             { path: "role-based", component: RoleBasedComponent },
+            { path: "admin/users", component: AdminUsersComponent },
+
         ]
     },
     { path: "sign-in", component: LoginComponent },

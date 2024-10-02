@@ -40,19 +40,20 @@ public class EmployeeService(
     public async Task<Result> AddEmployeeAsync(EmployeeDto employeeDto)
     {
         var user = await userManager.FindByIdAsync(employeeDto.UserId.ToString());
-        
-        var existingEmployee = await employeeRepository
-            .GetSingleByConditionAsync(e => e.UserId == employeeDto.UserId);
-        
-        if(existingEmployee != null)
-            return new ValidationError("Current user  already is employee");
-        
+
         if (user == null)
             return new EntityNotFoundError("User not found");
 
-        var employee = mapper.Map<Employee>(employeeDto);
-        await employeeRepository.InsertAsync(employee);
+        var existingEmployee = await employeeRepository
+            .GetSingleByConditionAsync(e => e.UserId == employeeDto.UserId);
 
+        if (existingEmployee != null)
+            return new ValidationError("Current user  already is employee");
+
+        var employee = mapper.Map<Employee>(employeeDto);
+        employee.HireDate = DateOnly.FromDateTime(DateTime.Now);
+
+        await employeeRepository.InsertAsync(employee);
         return Result.Ok();
     }
 
@@ -72,7 +73,7 @@ public class EmployeeService(
     public async Task<Result> UpsertEmployeeAsync(EmployeeDto employeeDto)
     {
         var employee = await employeeRepository
-            .GetSingleByConditionAsync(e => e.Id == employeeDto.Id);
+            .GetSingleByConditionAsync(e => e.UserId == employeeDto.UserId);
 
         if (employee == null)
             await AddEmployeeAsync(employeeDto);

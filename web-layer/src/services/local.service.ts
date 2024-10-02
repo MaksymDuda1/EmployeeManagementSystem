@@ -13,7 +13,7 @@ export class LocalService {
 
     isAuthenticated(name: string): boolean {
         if (this.isLocalStorageAvailable()) {
-            return !!localStorage.getItem(name);
+            return !!localStorage.getItem(name); 
         }
 
         return false;

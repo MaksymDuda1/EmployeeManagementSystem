@@ -1,0 +1,105 @@
+<mat-form-field style="margin-left: 8vw; margin-top: 8vh;">
+    <mat-label>Export</mat-label>
+    <mat-select (selectionChange)="onExport($event.value)" required>
+        <mat-option value="excel">Excel</mat-option>
+        <mat-option value="csv">CSV</mat-option>
+    </mat-select>
+</mat-form-field>
+<p-table class="table" #dt2 [value]="users" dataKey="id" [rows]="filterModel.pageSize" [totalRecords]="100"
+    [paginator]="true" [lazy]="true" (onLazyLoad)="getUsers($event)"
+    [globalFilterFields]="['secondName', 'role', 'status', 'registrationDate']"
+    [tableStyle]="{ 'min-width': '75rem', 'width': '84vw', 'margin' : 'auto' }">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>
+                <input class="form-control" type="text" placeholder="Search by second name"
+                    [(ngModel)]="filterModel.secondName" (input)="getUsers()">
+            </th>
+            <th>
+                <p-columnFilter field="role" [showMenu]="false">
+                    <ng-template pTemplate="filter">
+                        <p-dropdown [(ngModel)]="filterModel.role" [options]="roles" (onChange)="getUsers()"
+                            placeholder="Filter by role" [showClear]="true">
+                            <ng-template let-option pTemplate="item">
+                                {{option}}
+                            </ng-template>
+                        </p-dropdown>
+                    </ng-template>
+                </p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                        <p-dropdown [options]="status"
+                            (onChange)="setIsLocked($event.value)" placeholder="Filter by status" [showClear]="true">
+                            <ng-template let-option pTemplate="item">
+                                {{option}}
+                            </ng-template>
+                        </p-dropdown>
+                    </ng-template>
+                </p-columnFilter>
+            </th>
+            <th>
+                <div class="calendar-wrapper">
+                    <p-calendar [(ngModel)]="filterModel.minRegistrationDate" dateFormat="yy-mm-dd" [touchUI]="true"
+                        (onSelect)="onMinDateSelect($event)" placeholder="Registered from">
+                    </p-calendar>
+                </div>
+            </th>
+
+            <th>
+                <div class="calendar-wrapper">
+                    <p-calendar [(ngModel)]="filterModel.maxRegistrationDate" dateFormat="yy-mm-dd" [touchUI]="true"
+                        (onSelect)="onMaxDateSelect($event)" placeholder="Registered to">
+                    </p-calendar>
+                </div>
+            </th>
+        </tr>
+        <tr>
+            <th>First name</th>
+            <th>Second name</th>
+            <th>Email</th>
+            <th>Registartion date</th>
+            <th>Actions</th>
+
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+        <tr>
+            <td>
+                {{ user.firstName }}
+            </td>
+            <td>
+                {{ user.secondName }}
+            </td>
+            <td>
+                <p-tag [value]="user.email" />
+            </td>
+            <td>
+                {{user.registrationDate}}
+            </td>
+
+            <td *ngIf="currentUserId != user.id">
+                <a class="change mx-2" title="change" data-toggle="tooltip" (click)="onChangeRole(user.id)">
+                    <img src="assets/changeRole.png" alt="">
+                </a>
+                <a *ngIf="user.lockoutEnd == null" class="block mx-2" title="edit" data-toggle="tooltip"
+                    (click)="onUserLock(user.id)">
+                    <img src="assets/block-user.png" alt="">
+                </a>
+                <a *ngIf="user.lockoutEnd != null" class="edit mx-2" title="edit" data-toggle="tooltip"
+                    (click)="onUserUnlock(user.id)">
+                    <img src="assets/unlock.png" alt="">
+                </a>
+                <a class="delete mx-2" title="delete" data-toggle="tooltip">
+                    <img src="assets/remove-user.png" alt="" (click)="onUserDelete(user.id)">
+                </a>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<div class="modal" [ngClass]="{'show-modal': isChangingRole}">
+    <app-update-role-modal (closeModalEvent)="closeModal()"
+        [userData]="selectedUser"></app-update-role-modal>
+</div>

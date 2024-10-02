@@ -1,8 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ChangeRoleModel } from "../models/change-role.model";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { UserModel } from "../models/user.model";
+import { StatisticModel } from "../models/statistic.model";
 
 @Injectable({providedIn: "root"})
 export class AdminService{
@@ -15,7 +16,7 @@ export class AdminService{
     }
 
     changeUserRole(changeRoleModel: ChangeRoleModel) : Observable<any>{
+        console.log(changeRoleModel)
         return this.client.put<ChangeRoleModel>(this.path, changeRoleModel);
     }
-
 }
